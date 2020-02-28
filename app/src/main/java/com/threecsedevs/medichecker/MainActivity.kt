@@ -17,25 +17,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        var fragment = SearchActivity()
+        supportFragmentManager.beginTransaction().replace(R.id.HomePage, fragment, fragment.javaClass.simpleName).commit()
         bottomBar.setOnItemSelectedListener(object: OnItemSelectedListener {
             override fun onItemSelect(pos: Int) {
                 when(pos) {
                     0 -> {
                         val fragment = HomeActivity()
-                        supportFragmentManager.beginTransaction().replace(R.id.home, fragment, fragment.javaClass.simpleName).commit()
+                        supportFragmentManager.beginTransaction().replace(R.id.HomePage, fragment, fragment.javaClass.simpleName).commit()
                     }
                     1 -> {
                         val fragment = SearchActivity()
-                        supportFragmentManager.beginTransaction().replace(R.id.search, fragment, fragment.javaClass.simpleName).commit()
+                        supportFragmentManager.beginTransaction().replace(R.id.HomePage, fragment, fragment.javaClass.simpleName).commit()
                     }
                     2 -> {
                         val fragment = ProfileActivity()
-                        supportFragmentManager.beginTransaction().replace(R.id.profile, fragment, fragment.javaClass.simpleName).commit()
+                        supportFragmentManager.beginTransaction().replace(R.id.HomePage, fragment, fragment.javaClass.simpleName).commit()
                     }
                     else -> {
                         val fragment = SearchActivity()
-                        supportFragmentManager.beginTransaction().replace(R.id.search, fragment, fragment.javaClass.simpleName).commit()
+                        supportFragmentManager.beginTransaction().replace(R.id.HomePage, fragment, fragment.javaClass.simpleName).commit()
                     }
 
                 }
