@@ -2,6 +2,7 @@ package com.threecsedevs.medichecker
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import me.ibrahimsn.lib.OnItemSelectedListener
 
@@ -10,7 +11,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var fragment = SearchActivity()
+        var fragment: Fragment = SearchActivity()
         supportFragmentManager.beginTransaction().replace(R.id.mainPage, fragment, fragment.javaClass.simpleName).commit()
         bottomBar.setOnItemSelectedListener(object: OnItemSelectedListener {
             override fun onItemSelect(pos: Int) {
