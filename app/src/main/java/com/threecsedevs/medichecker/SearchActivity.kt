@@ -31,7 +31,7 @@ class SearchActivity : Fragment() {
             this, android.R.layout.simple_dropdown_item_1line, drugList)
 
         drugInput.setAdapter(adapter)
-        drugInput.threshold = 4
+        drugInput.threshold = 3
 
         // When Suggestion is clicked
         drugInput.onItemClickListener = AdapterView.OnItemClickListener{

@@ -36,7 +36,7 @@
                 android:gravity="bottom"
                 android:textColorHint="#555555"
                 android:completionHint="Enter Medicine Name/Ingredient"
-                android:completionThreshold="4"/>
+                android:completionThreshold="3"/>
 
             <Button
                 android:id="@+id/add"
