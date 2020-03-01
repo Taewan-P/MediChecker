@@ -23,24 +23,6 @@ class SearchActivity : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val drugList = arrayOf(
-            "Acetaminophen", "Acetadryl", "Acetazolamide",
-            "Acetaminophen-codeine", "INFANTS' Acetaminophen")
-
-        val adapter = ArrayAdapter<String>(
-            this, android.R.layout.simple_dropdown_item_1line, drugList)
-
-        drugInput.setAdapter(adapter)
-        drugInput.threshold = 3
-
-        // When Suggestion is clicked
-        drugInput.onItemClickListener = AdapterView.OnItemClickListener{
-                parent,view,position,id->
-            val selectedItem = parent.getItemAtPosition(position).toString()
-            // Display the clicked item using toast
-            Toast.makeText(this,"Selected : $selectedItem",Toast.LENGTH_SHORT).show()
-        }
-
         return container?.inflate(R.layout.activity_search)
     }
 
@@ -48,6 +30,23 @@ class SearchActivity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val drugList = arrayOf(
+            "Acetaminophen", "Acetadryl", "Acetazolamide",
+            "Acetaminophen-codeine", "INFANTS' Acetaminophen")
+
+        val adapter = ArrayAdapter<String>(
+            this.context!!, android.R.layout.simple_dropdown_item_1line, drugList)
+
+        drugInput.setAdapter(adapter)
+        drugInput.threshold = 3
+
+        // When Suggestion is clicked
+        drugInput.onItemClickListener = AdapterView.OnItemClickListener{
+                parent, view, position, id->
+            val selectedItem = parent.getItemAtPosition(position).toString()
+            // Display the clicked item using toast
+            Toast.makeText(activity?.applicationContext,"Selected : $selectedItem",Toast.LENGTH_SHORT).show()
+        }
 
     }
 }
