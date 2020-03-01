@@ -14,6 +14,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        android:background="@drawable/shadow"/>
 
     <me.ibrahimsn.lib.SmoothBottomBar
         android:id="@+id/bottomBar"
