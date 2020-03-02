@@ -12,6 +12,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_search.*
 
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONArray
+import org.json.JSONObject
+
 class SearchActivity : Fragment() {
 
     fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
@@ -49,4 +56,23 @@ class SearchActivity : Fragment() {
         }
 
     }
+
+    fun getName() {
+        val queue = Volley.newRequestQueue(this)
+        val url = "https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name=Tamiflu"
+//        val url = "http://my-json-feed"
+
+        val stringReq = StringRequest(Request.Method.GET, url,
+            Response.Listener<String> { response ->
+
+                var strResp = response.toString()
+                val res: Any = JSONObject(strResp).getJSONObject("suggestionGroup").getJSONArray("suggestionList")
+//                textView!!.text = "response : $str_user "
+            },
+            Response.ErrorListener {
+//                textView!!.text = "That didn't work!"
+                println("ERROR!")
+            })
+    }
+
 }
