@@ -2,6 +2,7 @@ package com.threecsedevs.medichecker
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,43 @@ class SearchActivity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var word = "Tami"
+        testButton.setOnClickListener {
+            var queue = Volley.newRequestQueue(this.context!!)
+            val url = "https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name="
+
+            val name = "Tami"
+            val stringrequest = object :
+                StringRequest(Request.Method.GET, url + name, Response.Listener { response ->
+                    println("Receiving Response : $response")
+                    testText.text = response
+
+                }, Response.ErrorListener { error ->
+                    Log.d("ERROR", "Response Unsuccessful : $error")
+                }) {
+                    override fun getBodyContentType(): String {
+                        return "application/json; charset=utf-8"
+                    }
+//                    override fun getBody(): ByteArray {
+////                        return requestBody.toByteArray()
+////                    }
+
+            }
+            Volley.newRequestQueue(context).add(stringrequest)
+
+        }
+
+//            val suggestions = SpellingCheck.getSpellingSuggestions(this.context!!, word) { testSuccess ->
+//                if (testSuccess) {
+//                    Toast.makeText(this.context!!, "Success!!!", Toast.LENGTH_SHORT).show()
+//                }
+//                else {
+//                    Toast.makeText(this.context!!, "Failed...", Toast.LENGTH_SHORT).show()
+//                }
+//
+//            }
+
+
         val drugList = arrayOf(
             "Acetaminophen", "Acetadryl", "Acetazolamide",
             "Acetaminophen-codeine", "INFANTS' Acetaminophen")
@@ -55,24 +93,6 @@ class SearchActivity : Fragment() {
             Toast.makeText(activity?.applicationContext,"Selected : $selectedItem",Toast.LENGTH_SHORT).show()
         }
 
-    }
-
-    fun getName() {
-        val queue = Volley.newRequestQueue(this)
-        val url = "https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name=Tamiflu"
-//        val url = "http://my-json-feed"
-
-        val stringReq = StringRequest(Request.Method.GET, url,
-            Response.Listener<String> { response ->
-
-                var strResp = response.toString()
-                val res: Any = JSONObject(strResp).getJSONObject("suggestionGroup").getJSONArray("suggestionList")
-//                textView!!.text = "response : $str_user "
-            },
-            Response.ErrorListener {
-//                textView!!.text = "That didn't work!"
-                println("ERROR!")
-            })
     }
 
 }
