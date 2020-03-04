@@ -1,5 +1,6 @@
 package com.threecsedevs.medichecker
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -37,9 +38,9 @@ class SearchActivity : Fragment() {
             newBtn.layoutParams = params
             newBtn.text = "Input Medicine"
             newBtn.setOnClickListener {
-//                Toast.makeText(this.context, newBtn.text,Toast.LENGTH_SHORT).show()
                 Toast.makeText(this.context, newBtn.id.toString(), Toast.LENGTH_SHORT).show()
-                println(newBtn.id)
+                val intent = Intent(context, SearchAllActivity::class.java)
+                startActivity(intent)
             }
             parentlayout.addView(newBtn)
             counter ++
@@ -49,6 +50,11 @@ class SearchActivity : Fragment() {
 //            val tmpbtn = counter as Button
             parentlayout.removeView(parentlayout.getChildAt(parentlayout.childCount-1))
             counter --
+        }
+
+        inputMedicine.setOnClickListener{
+            val intent = Intent(context, SearchAllActivity::class.java)
+            startActivity(intent)
         }
 
 
