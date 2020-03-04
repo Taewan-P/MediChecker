@@ -48,12 +48,12 @@ class SearchActivity : Fragment() {
             newBtn.layoutParams = params
             newBtn.text = "Input Medicine"
             newBtn.setOnClickListener {
-                Toast.makeText(this.context, newBtn.text,Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this.context, newBtn.text,Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.context, newBtn.id.toString(), Toast.LENGTH_SHORT).show()
+                println(newBtn.id)
             }
             parentlayout.addView(newBtn)
             counter ++
-
-
 
         }
 
