@@ -47,9 +47,11 @@ class SearchActivity : Fragment() {
 
         }
         deleteBtn.setOnClickListener {
-//            val tmpbtn = counter as Button
-            parentlayout.removeView(parentlayout.getChildAt(parentlayout.childCount-1))
-            counter --
+            if(parentlayout.childCount > 1){
+                parentlayout.removeView(parentlayout.getChildAt(parentlayout.childCount-1))
+                counter --
+            }
+
         }
 
         inputMedicine.setOnClickListener{
