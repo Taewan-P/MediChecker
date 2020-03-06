@@ -15,12 +15,5 @@ class SearchAllActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search_popup)
 
 
-        testSubmit.setOnClickListener {
-            val text = testInput.text
-            val intent = Intent()
-            intent.putExtra("medicine", text.toString())
-            setResult(Activity.RESULT_OK, intent)
-            finish()
-        }
     }
 }
