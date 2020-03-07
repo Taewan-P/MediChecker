@@ -16,7 +16,7 @@
         android:textStyle="bold" />
 
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/drugInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,9 +24,16 @@
         android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:completionThreshold="3"
         android:hint="Enter Medicine Name/Ingredient"
-        android:textColorHint="#818181" />
+        android:textColorHint="#818181"
+        android:imeOptions="actionDone" />
+
+    <ListView
+        android:id="@+id/resultListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/drugInput"
+        android:layout_marginTop="20dp"/>
 
 
 </RelativeLayout>
