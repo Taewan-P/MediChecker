@@ -22,6 +22,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.collections.ArrayList
+import kotlinx.coroutines.*
 
 class SearchAllActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +36,8 @@ class SearchAllActivity : AppCompatActivity() {
         resultListView.adapter = adapter
 //        drugInput.setAdapter(adapter)
 //        drugInput.threshold = 1
+
+
 
         drugInput.addTextChangedListener(object: TextWatcher {
             fun getSuggestions(s: String) : MutableList<String> {
@@ -62,17 +65,30 @@ class SearchAllActivity : AppCompatActivity() {
                 val timer = Timer()
                 timer.schedule(object: TimerTask() {
                     override fun run() {
-                        var suggestions = getSuggestions(p0.toString())
-                        // TODO(result from getSuggestions() is [], so suggestions is empty too.)
-                        println(p0.toString())
-                        runOnUiThread {
-                            adapter.clear() // Clear ListView
-                            println("suggestions : $suggestions")
-                            for (i in suggestions) { adapter.add(i) }
-                            adapter = ArrayAdapter<String>(this@SearchAllActivity, android.R.layout.simple_list_item_1, suggestions)
-                            // Adapter with empty string, but ListView works,(Do not know reason why)
-                            resultListView.adapter = adapter
-                            adapter.notifyDataSetChanged() // Update ListView to new List.
+                        GlobalScope.launch {
+                            var suggestions : MutableList<String>
+                            // TODO(result from getSuggestions() is [], so suggestions is empty too.)
+                            runBlocking {
+                                if(p0 != null && !p0.toString().equals("")){
+                                    var job = async {
+
+                                        suggestions = getSuggestions(p0.toString())
+                                        delay(500L)
+                                        println("p0 : " + p0.toString())
+                                        suggestions
+                                    }
+                                    var dataFromServer = job.await()
+                                    runOnUiThread {
+                                        adapter.clear() // Clear ListView
+                                        println("suggestions : $dataFromServer")
+                                        for (i in dataFromServer) { adapter.add(i) }
+                                        adapter = ArrayAdapter<String>(this@SearchAllActivity, android.R.layout.simple_list_item_1, dataFromServer)
+                                        // Adapter with empty string, but ListView works,(Do not know reason why)
+                                        resultListView.adapter = adapter
+                                        adapter.notifyDataSetChanged() // Update ListView to new List.
+                                    }
+                                }
+                            }
                         }
                     }
                 }, 1000)
