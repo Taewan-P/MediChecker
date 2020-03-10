@@ -6,4 +6,5 @@
     <string name="search_title">Check Drug Interactions</string>
     <string name="add_drug">Add</string>
     <string name="delete_drug">delete</string>
+    <string name="search_inter">Search Interaction</string>
 </resources>

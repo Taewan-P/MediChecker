@@ -8,7 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_search.*
+import org.json.JSONArray
+import org.json.JSONObject
+
 
 class SearchActivity : Fragment() {
 
@@ -59,6 +66,46 @@ class SearchActivity : Fragment() {
             val intent = Intent(context, SearchAllActivity::class.java)
             startActivityForResult(intent,100)
         }
+        searchInterBtn.setOnClickListener{
+            val rxcuis = mutableListOf<String>("207106", "152923", "656659") //TESTING RXCUIS
+            var url = makeURL(rxcuis)
+            var queue = Volley.newRequestQueue(this.context!!)
+
+            val stringrequest = object :
+                StringRequest(Request.Method.GET, url, Response.Listener { response ->
+                    println("Receiving Response : $response")
+                    val responseTest = JSONObject(response)
+                    val a = responseTest.getJSONArray("fullInteractionTypeGroup").get(0)
+                    val b =JSONObject(a.toString()).get("fullInteractionType")
+                    val c = JSONArray(b.toString()).get(0)
+                    val drug1 = JSONObject(c.toString()).getJSONArray("minConcept").get(0) //상호작용 약의 기본정보(이름)을 가져옴.
+                    val drug1_name = JSONObject(drug1.toString()).get("name")
+                    val drug2 = JSONObject(c.toString()).getJSONArray("minConcept").get(1) //상호작용 약의 기본정보(이름)을 가져옴.
+                    val drug2_name = JSONObject(drug2.toString()).get("name")
+                    val e = JSONObject(c.toString()).getJSONArray("interactionPair").get(0)
+                    val severity = JSONObject(e.toString()).get("severity")
+                    val description = JSONObject(e.toString()).get("description")
+
+//                    val drug1 = JSONArray(c.toString()).get(0)
+//                    val d = JSONObject(b.toString()).get("interactionPair") // get serverity and description
+                    println(drug1_name)
+                    println(drug2_name)
+                    println(e)
+
+
+                    interactionResult.text = drug1_name.toString() + " / " + drug2_name.toString()
+                    severity_grade.text = severity.toString()
+                    desc.text = description.toString()
+
+                }, Response.ErrorListener { error ->
+                }) {
+                override fun getBodyContentType(): String {
+                    return "application/json; charset=utf-8"
+                }
+            }
+            Volley.newRequestQueue(context).add(stringrequest)
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -75,5 +122,42 @@ class SearchActivity : Fragment() {
             }
         }
     }
+
+
+//    //TEST CODE
+//    fun searchInteraction(){
+//        val rxcuis = mutableListOf<String>("207106", "152923", "656659")
+//        getInteraction(rxcuis)
+//    }
+//
+//    fun getInteraction(rxcuis: MutableList<String>) {
+//        val url = makeURL(rxcuis)
+//
+//        val result =
+//            URL(url).readText()
+//        println(result)
+//
+//        val jsonres = JSONObject(result)
+//        println(jsonres)
+//        val response = jsonres.getJSONArray("fullInteractionTypeGroup")
+//
+//        println(response)
+//
+//    }
+
+    fun makeURL(rxcuis: MutableList<String>):String {
+        var url = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
+        for (i in rxcuis){
+            println(i)
+            url += i
+            url+="+"
+        }
+        url.substring(0,url.length-1)
+        url+="&sources=ONCHigh"
+        println(url)
+
+        return url
+    }
+
 
 }

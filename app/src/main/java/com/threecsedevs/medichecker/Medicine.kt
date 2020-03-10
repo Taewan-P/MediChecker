@@ -1,11 +1,5 @@
 package com.threecsedevs.medichecker
 
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
-import org.json.JSONArray
 import org.json.JSONObject
 import java.net.URL
 
@@ -16,43 +10,35 @@ import java.net.URL
 
 
 fun main() {
-   getDrugName("Tamiflu")
+    val rxcuis = mutableListOf<String>("207106", "152923", "656659")
+    getInteraction(rxcuis)
 }
 
-fun getDrugName(input: String) {
+fun getInteraction(rxcuis: MutableList<String>) {
+    val url = makeURL(rxcuis)
+
     val result =
-        URL("https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name=" + input).readText()
+        URL(url).readText()
     println(result)
 
     val jsonres = JSONObject(result)
     println(jsonres)
-    val response = jsonres.getJSONObject("suggestionGroup").getJSONObject("suggestionList").getJSONArray("suggestion")
+    val response = jsonres.getJSONArray("fullInteractionTypeGroup")
 
     println(response)
 
-
 }
 
-//fun getName() {
-//    val queue = Volley.newRequestQueue(this)
-//    val url = "https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name=Tamiflu"
-////        val url = "http://my-json-feed"
-//
-//    val stringReq = StringRequest(Request.Method.GET, url,
-//        Response.Listener<String> { response ->
-//
-//            var strResp = response.toString()
-//            val jsonObj: JSONObject = JSONObject(strResp)
-//            val jsonArray: JSONArray = jsonObj.getJSONArray("items")
-//            var str_user: String = ""
-//            for (i in 0 until jsonArray.length()) {
-//                var jsonInner: JSONObject = jsonArray.getJSONObject(i)
-//                str_user = str_user + "\n" + jsonInner.get("login")
-//            }
-////                textView!!.text = "response : $str_user "
-//        },
-//        Response.ErrorListener {
-//            //                textView!!.text = "That didn't work!"
-//            println("ERROR!")
-//        })
-//}
+fun makeURL(rxcuis: MutableList<String>):String {
+    var url = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
+    for (i in rxcuis){
+        println(i)
+        url += i
+        url+="+"
+    }
+    url.substring(0,url.length-1)
+    url+="&sources=ONCHigh"
+    println(url)
+
+    return url
+}
