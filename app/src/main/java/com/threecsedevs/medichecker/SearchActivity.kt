@@ -77,7 +77,9 @@ class SearchActivity : Fragment() {
                     val responseTest = JSONObject(response)
                     val a = responseTest.getJSONArray("fullInteractionTypeGroup").get(0)
                     val b =JSONObject(a.toString()).get("fullInteractionType")
-                    val c = JSONArray(b.toString()).get(0)
+                    val c = JSONArray(b.toString()).get(0) //fullInteractionTypeGroup - Array
+                    val inter_len = JSONArray(b.toString()).length()
+                    println("length of interaction : ${ inter_len.toString()}")
                     val drug1 = JSONObject(c.toString()).getJSONArray("minConcept").get(0) //상호작용 약의 기본정보(이름)을 가져옴.
                     val drug1_name = JSONObject(drug1.toString()).get("name")
                     val drug2 = JSONObject(c.toString()).getJSONArray("minConcept").get(1) //상호작용 약의 기본정보(이름)을 가져옴.
