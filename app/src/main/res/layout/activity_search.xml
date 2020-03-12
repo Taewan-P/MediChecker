@@ -8,25 +8,28 @@
 
     <TextView
         android:id="@+id/searchTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:gravity="center"
         android:layout_marginTop="40dp"
-        android:layout_marginLeft="20dp"
+
+        android:orientation="vertical"
         android:text="@string/search_title"
         android:textColor="#000000"
-        android:textStyle="bold"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/searchTitle">
 
         <LinearLayout
             android:id="@+id/parentlayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
+            android:layout_gravity="top|center"
             android:orientation="vertical">
 
             <Button
@@ -37,22 +40,32 @@
 
         </LinearLayout>
 
-
         <Button
             android:id="@+id/addBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
             android:layout_weight="1"
             android:text="@string/add_drug" />
 
         <Button
             android:id="@+id/deleteBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:text="@string/delete_drug" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/searchInterBtn"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/search_inter" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -85,18 +98,7 @@
             android:textColor="#000000"
             android:textStyle="bold"
             android:textSize="10sp" />
-        
+
     </LinearLayout>
-    <Button
-        android:id="@+id/searchInterBtn"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:text="@string/search_inter" />
-
-
-
 
 </RelativeLayout>
