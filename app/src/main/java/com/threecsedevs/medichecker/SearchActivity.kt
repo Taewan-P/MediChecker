@@ -83,7 +83,7 @@ class SearchActivity : Fragment() {
 
 
 
-            var interURL = makeInteractionURL(drugName)
+
             var queue = Volley.newRequestQueue(this.context!!)
 
 
@@ -103,8 +103,16 @@ class SearchActivity : Fragment() {
                 return result
             }
 
+            val rxcuis = mutableListOf<String>()
 
+            for (name in drugName){
+                rxcuis.add(getrxcuis(name))
+            }
 
+            println(rxcuis.toString())
+            //@TODO : Koroutine 을 이용해 비동기처리 필요
+
+            var interURL = makeInteractionURL(rxcuis)
             val getInteractionRequest = object :
                 StringRequest(Request.Method.GET, interURL, Response.Listener { response ->
                     println("Receiving Response : $response")
@@ -148,13 +156,7 @@ class SearchActivity : Fragment() {
                     return "application/json; charset=utf-8"
                 }
             }
-            val rxcuis = mutableListOf<String>()
 
-            for (name in drugName){
-                rxcuis.add(getrxcuis(name))
-            }
-            println(rxcuis.toString())
-            //@TODO : Koroutine 을 이용해 비동기처리 필요
             queue.add(getInteractionRequest)
         }
 
