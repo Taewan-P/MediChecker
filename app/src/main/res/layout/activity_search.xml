@@ -29,7 +29,6 @@
             android:id="@+id/parentlayout"
             android:layout_width="wrap_content"
             android:layout_height="200dp"
-            android:layout_gravity="top|center"
             android:orientation="vertical">
 
             <Button
@@ -42,17 +41,15 @@
 
         <Button
             android:id="@+id/addBtn"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|center"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:text="@string/add_drug" />
 
         <Button
             android:id="@+id/deleteBtn"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center"
             android:text="@string/delete_drug" />
 
