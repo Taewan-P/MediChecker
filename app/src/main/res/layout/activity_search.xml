@@ -27,8 +27,9 @@
 
         <Button
             android:id="@+id/addBtn"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_gravity="center"
             android:text="@string/add_drug" />
 
@@ -52,9 +53,10 @@
 
         <Button
             android:id="@+id/deleteBtn"
-            android:layout_width="100dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginRight="20dp"
             android:text="@string/delete_drug" />
 
     </LinearLayout>
