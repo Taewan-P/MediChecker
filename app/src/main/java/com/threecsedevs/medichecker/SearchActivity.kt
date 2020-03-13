@@ -69,23 +69,44 @@ class SearchActivity : Fragment() {
         }
         searchInterBtn.setOnClickListener{
 //            val rxcuis = mutableListOf<String>("207106", "152923", "656659") //TESTING RXCUIS
-            val rxcuis = mutableListOf<String>()
+            val drugName = mutableListOf<String>()
             val btn = Button(this.context)
             println("Counter starts from $counter")
 
             while (counter > 0){
                 var target = parentlayout.getChildAt(counter - 1) as Button
                 println(target.text)
-                rxcuis.add(target.text.toString())
+                drugName.add(target.text.toString())
                 counter--
             }
-            println("rxcuis : " + rxcuis.toString())
+            println("drugName : " + drugName.toString())
 
-            var url = makeURL(rxcuis)
+
+
+            var interURL = makeInteractionURL(drugName)
             var queue = Volley.newRequestQueue(this.context!!)
 
-            val stringrequest = object :
-                StringRequest(Request.Method.GET, url, Response.Listener { response ->
+
+            fun getrxcuis(s: String): String{ //s : 전달할 약의 이름, result : 함수 실행 결과를 담을 변수
+                val url = makeRxcuiURL(s)
+                var result: String = ""
+                val getRXCUIRequest = object : StringRequest(Request.Method.GET, url, Response.Listener { response ->
+                    val responseTest = JSONObject(response)
+                    val rxcui = responseTest.getJSONObject("idGroup").getJSONArray("rxnormId").get(0)
+                    result = rxcui.toString()
+                }, Response.ErrorListener { error -> println("Response Unsuccessful : $error") }){
+                    override fun getBodyContentType(): String {
+                        return "application/json; charset=utf-8"
+                    }
+                }
+                queue.add(getRXCUIRequest)
+                return result
+            }
+
+
+
+            val getInteractionRequest = object :
+                StringRequest(Request.Method.GET, interURL, Response.Listener { response ->
                     println("Receiving Response : $response")
                     val responseTest = JSONObject(response)
 
@@ -113,7 +134,7 @@ class SearchActivity : Fragment() {
                         severity_grade.text = severity.toString()
                         desc.text = description.toString()
                     } else {
-                        desc.text = "Interaction between $drugInput"
+                        desc.text = "Interaction between drugs not found"
                     }
 
 
@@ -127,7 +148,14 @@ class SearchActivity : Fragment() {
                     return "application/json; charset=utf-8"
                 }
             }
-            Volley.newRequestQueue(context).add(stringrequest)
+            val rxcuis = mutableListOf<String>()
+
+            for (name in drugName){
+                rxcuis.add(getrxcuis(name))
+            }
+            println(rxcuis.toString())
+            //@TODO : Koroutine 을 이용해 비동기처리 필요
+            queue.add(getInteractionRequest)
         }
 
     }
@@ -148,28 +176,8 @@ class SearchActivity : Fragment() {
     }
 
 
-//    //TEST CODE
-//    fun searchInteraction(){
-//        val rxcuis = mutableListOf<String>("207106", "152923", "656659")
-//        getInteraction(rxcuis)
-//    }
-//
-//    fun getInteraction(rxcuis: MutableList<String>) {
-//        val url = makeURL(rxcuis)
-//
-//        val result =
-//            URL(url).readText()
-//        println(result)
-//
-//        val jsonres = JSONObject(result)
-//        println(jsonres)
-//        val response = jsonres.getJSONArray("fullInteractionTypeGroup")
-//
-//        println(response)
-//
-//    }
 
-    fun makeURL(rxcuis: MutableList<String>):String {
+    fun makeInteractionURL(rxcuis: MutableList<String>):String {
         var url = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
         for (i in rxcuis){
             println(i)
@@ -178,6 +186,16 @@ class SearchActivity : Fragment() {
         }
         url.substring(0,url.length-1)
         url+="&sources=ONCHigh"
+        println(url)
+
+        return url
+    }
+
+    fun makeRxcuiURL(name: String):String {
+        var url = "https://rxnav.nlm.nih.gov/REST/rxcui.json?name="
+        url+=name
+        url+="&search=1\""
+
         println(url)
 
         return url
