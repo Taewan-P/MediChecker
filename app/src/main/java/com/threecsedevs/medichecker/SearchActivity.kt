@@ -82,8 +82,6 @@ class SearchActivity : Fragment() {
             println("drugName : " + drugName.toString())
 
 
-
-
             var queue = Volley.newRequestQueue(this.context!!)
 
 
@@ -156,7 +154,6 @@ class SearchActivity : Fragment() {
                     return "application/json; charset=utf-8"
                 }
             }
-
             queue.add(getInteractionRequest)
         }
 
@@ -176,8 +173,6 @@ class SearchActivity : Fragment() {
             }
         }
     }
-
-
 
     fun makeInteractionURL(rxcuis: MutableList<String>):String {
         var url = "https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis="
