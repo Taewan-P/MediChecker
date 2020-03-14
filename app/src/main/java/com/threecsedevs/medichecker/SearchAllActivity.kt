@@ -73,7 +73,7 @@ class SearchAllActivity : AppCompatActivity() {
                                     var job = async {
 
                                         suggestions = getSuggestions(p0.toString())
-                                        delay(500L)
+                                        delay(1200L)
                                         println("p0 : " + p0.toString())
                                         suggestions
                                     }
