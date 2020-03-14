@@ -52,7 +52,7 @@ class SearchAllActivity : AppCompatActivity() {
                         println("len : $len")
                         for (i in 0 until len) {
                             print(" " + a[i].toString() + " ")
-                            result.add(a[i].toString()) // TODO(Result is not adding to the list!!)
+                            result.add(a[i].toString())
                         }
                     }
                 }, Response.ErrorListener { error -> Log.d("ERROR", "Response Unsuccessful : $error") }){}
@@ -67,7 +67,6 @@ class SearchAllActivity : AppCompatActivity() {
                     override fun run() {
                         GlobalScope.launch {
                             var suggestions : MutableList<String>
-                            // TODO(result from getSuggestions() is [], so suggestions is empty too.)
                             runBlocking {
                                 if(p0 != null && !p0.toString().equals("")){
                                     var job = async {
