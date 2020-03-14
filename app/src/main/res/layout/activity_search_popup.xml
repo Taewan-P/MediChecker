@@ -26,6 +26,8 @@
         android:layout_marginRight="20dp"
         android:hint="Enter Medicine Name/Ingredient"
         android:textColorHint="#818181"
+        android:maxLines="1"
+        android:inputType="text"
         android:imeOptions="actionDone" />
 
     <ListView
