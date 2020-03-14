@@ -101,7 +101,6 @@ class SearchAllActivity : AppCompatActivity() {
         })
 
         drugInput.setOnEditorActionListener { v, i, keyEvent ->
-           // TODO(IME OPTIONS for EditText is not working...!)
             if (i == EditorInfo.IME_ACTION_DONE) {
                adapter.notifyDataSetChanged()
                true
