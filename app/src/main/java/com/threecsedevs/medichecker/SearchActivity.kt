@@ -71,6 +71,7 @@ class SearchActivity : Fragment() {
 //            val rxcuis = mutableListOf<String>("207106", "152923", "656659") //TESTING RXCUIS
             val drugName = mutableListOf<String>()
             val btn = Button(this.context)
+            var result = ""
             println("Counter starts from $counter")
 
             while (counter > 0){
@@ -138,9 +139,18 @@ class SearchActivity : Fragment() {
 
                         interactionResult.text = drug1_name.toString() + " / " + drug2_name.toString()
                         severity_grade.text = severity.toString()
-                        desc.text = description.toString()
+                        result = description.toString()
+                        println("severity : ${severity.toString()}")
+                        println("result at SearchActivity : $result")
+                        val intent = Intent(context, InteractionResultActivity::class.java)
+                        intent.putExtra("result", result);
+                        startActivity(intent)
                     } else {
-                        desc.text = "Interaction between drugs not found"
+                        result = "Interaction between drugs not found"
+                        println("result at SearchActivity : $result")
+                        val intent = Intent(context, InteractionResultActivity::class.java)
+                        intent.putExtra("result", result);
+                        startActivity(intent)
                     }
 
 
