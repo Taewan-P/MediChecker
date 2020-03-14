@@ -110,7 +110,7 @@ class SearchActivity : Fragment() {
             }
 
             println(rxcuis.toString())
-            //@TODO : Koroutine 을 이용해 비동기처리 필요
+            //@TODO : Coroutine 을 이용해 비동기처리 필요
 
             var interURL = makeInteractionURL(rxcuis)
             val getInteractionRequest = object :
