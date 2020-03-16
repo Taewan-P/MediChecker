@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListView
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -27,7 +26,7 @@ class HomeActivity : Fragment() {
         mlist.add(Medicine("Tamiflu", morning = true, lunch = false, dinner = true))
         mlist.add(Medicine("Ibuprophen", morning = false, lunch = false, dinner = false))
 
-        medicineList.adapter = ListViewAdapter(this.context!!, R.layout.medicine_item, mlist)
+        medicineList.adapter = MedicineListViewAdapter(this.context!!, R.layout.medicine_item, mlist)
 
     }
 }

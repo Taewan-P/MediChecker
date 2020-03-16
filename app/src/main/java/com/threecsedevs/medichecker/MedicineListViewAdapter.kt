@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 
-class ListViewAdapter(context: Context, var resource: Int ,var items: List<Medicine> ) : ArrayAdapter<Medicine>(context, resource, items){
+class MedicineListViewAdapter(context: Context, var resource: Int, var items: List<Medicine> ) : ArrayAdapter<Medicine>(context, resource, items){
 
     override fun getView(position: Int, convertView: View?, p2: ViewGroup): View {
         val layoutInflater : LayoutInflater = LayoutInflater.from(context)
