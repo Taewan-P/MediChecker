@@ -5,23 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.recyclerview.widget.RecyclerView
 
 class ListViewAdapter(context: Context, var resource: Int ,var items: List<Medicine> ) : ArrayAdapter<Medicine>(context, resource, items){
-    override fun getView(p0: Int, convertView: View?, p2: ViewGroup): View {
-        TODO("Not yet implemented")
-    }
 
+    override fun getView(position: Int, convertView: View?, p2: ViewGroup): View {
+        val layoutInflater : LayoutInflater = LayoutInflater.from(context)
+        val view : View = layoutInflater.inflate(resource , null )
+        val medicineName = view.findViewById(R.id.medicineName) as TextView
+        val morning = view.findViewById(R.id.morningToggle) as Switch
+        val lunch = view.findViewById(R.id.lunchToggle) as Switch
+        val dinner = view.findViewById(R.id.dinnerToggle) as Switch
 
-    override fun getItem(p0: Int): Medicine? {
-        TODO("Not yet implemented")
-    }
+        var medicine = items[position]
 
-    override fun getItemId(p0: Int): Long {
-        TODO("Not yet implemented")
-    }
+        medicineName.text = medicine.name
+        morning.isChecked = medicine.morning
+        lunch.isChecked = medicine.lunch
+        dinner.isChecked = medicine.dinner
 
-    override fun getCount(): Int {
-        TODO("Not yet implemented")
+        return view
     }
 }
