@@ -11,8 +11,6 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_interaction_result.*
 import kotlinx.coroutines.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
@@ -36,7 +34,6 @@ class InteractionResultActivity : AppCompatActivity() {
 //
 //            }
 //        }
-        doAsync {
             for (name in drug){
                 var drugId = getrxcuis(name)
                 rxcuis.add(drugId)
@@ -96,15 +93,11 @@ class InteractionResultActivity : AppCompatActivity() {
 
             println("Order : $count")
             count ++
-            uiThread {
                 Handler().postDelayed({
                     changeResultText(result)
                     println("Order : $count")
                     count ++
                 },2000)
-            }
-        }
-
 
         println("result at InteractionResultActivity : $result")
     }
