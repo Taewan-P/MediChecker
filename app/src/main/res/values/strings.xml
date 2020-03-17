@@ -8,4 +8,5 @@
     <string name="delete_drug">delete</string>
     <string name="search_inter">Search Interaction</string>
     <string name="home_title">My Medicine</string>
+    <string name="help">Start by pressing the add button on the top right side.</string>
 </resources>

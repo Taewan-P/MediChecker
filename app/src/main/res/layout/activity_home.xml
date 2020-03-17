@@ -16,6 +16,15 @@
         android:textStyle="bold"
         android:textSize="30sp" />
 
+    <TextView
+        android:id="@+id/helpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/help"
+        android:layout_below="@+id/homeTitle"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="20dp"/>
+
     <ListView
         android:id="@+id/medicineList"
         android:layout_below="@+id/homeTitle"
