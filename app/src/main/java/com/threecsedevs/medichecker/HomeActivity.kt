@@ -31,6 +31,7 @@ class HomeActivity : Fragment() {
 //        mlist.add(Medicine("Ibuprophen", morning = false, lunch = false, dinner = false))
 
         medicineList.adapter = MedicineListViewAdapter(this.context!!, R.layout.medicine_item, mlist)
+        medicineList.emptyView = helpText
 
         add_button.setOnClickListener {
             val builder = AlertDialog.Builder(this.context)
