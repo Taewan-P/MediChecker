@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 
 class MedicineListViewAdapter(context: Context, var resource: Int, var items: MutableList<Medicine> ) : ArrayAdapter<Medicine>(context, resource, items){
+    private lateinit var db:DatabaseHelper
 
     override fun getView(position: Int, convertView: View?, p2: ViewGroup): View {
         val layoutInflater : LayoutInflater = LayoutInflater.from(context)
@@ -18,6 +19,7 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
         val dinner = view.findViewById(R.id.dinnerToggle) as CheckBox
         val edit = view.findViewById(R.id.editBtn) as Button
         val delete = view.findViewById(R.id.delBtn) as Button
+        db = DatabaseHelper(this.context)
 
         var medicine = items[position]
 
@@ -61,8 +63,15 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
         }
 
         delete.setOnClickListener {
-            items.removeAt(position)
-            notifyDataSetChanged()
+            val result = db.delMedicine(medicine)
+            if (result) {
+                items.removeAt(position)
+                notifyDataSetChanged()
+            }
+            else {
+                Toast.makeText(this.context!!, "Delete Failed. Please Try Again.", Toast.LENGTH_SHORT)
+                notifyDataSetChanged()
+            }
         }
 
 

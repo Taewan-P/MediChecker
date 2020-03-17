@@ -2,6 +2,7 @@ package com.threecsedevs.medichecker
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
@@ -46,6 +47,13 @@ class DatabaseHelper(context: Context)
         db.close()
 
         return (Integer.parseInt("$_success") != -1)
+    }
+
+    fun delMedicine(medicine: Medicine) : Boolean {
+        val db = this.writableDatabase
+        val rowNum = db.delete(TABLE_NAME, "$MEDICINE_NAME=?", arrayOf(medicine.name.toString()))
+        db.close()
+        return rowNum > 0
     }
 
     fun getAllMedicine() : MutableList<Medicine> {
