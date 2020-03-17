@@ -73,10 +73,10 @@ class DatabaseHelper(context: Context)
         val db = readableDatabase
         val selectALLQuery = "SELECT * FROM $TABLE_NAME"
         val cursor = db.rawQuery(selectALLQuery, null)
-        var name : String = ""
-        var morning : Boolean = false
-        var lunch : Boolean = false
-        var dinner : Boolean = false
+        var name : String
+        var morning : Boolean
+        var lunch : Boolean
+        var dinner : Boolean
 
         if (cursor != null) {
             if (cursor.moveToFirst()) {
