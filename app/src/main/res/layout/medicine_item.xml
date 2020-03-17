@@ -23,20 +23,26 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="5dp">
 
-        <Switch
+        <CheckBox
             android:id="@+id/morningToggle"
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:enabled="false" />
 
-        <Switch
+        <CheckBox
             android:id="@+id/lunchToggle"
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:enabled="false" />
 
-        <Switch
+        <CheckBox
             android:id="@+id/dinnerToggle"
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:enabled="false" />
 
     </LinearLayout>
 
@@ -52,6 +58,7 @@
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:text="Edit"
+            android:layout_weight="3"
             android:textSize="13sp"
             android:layout_marginLeft="10dp" />
 
@@ -61,6 +68,7 @@
             android:layout_width="30dp"
             android:layout_height="40dp"
             android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:text="x"
             android:textSize="13sp" />
 

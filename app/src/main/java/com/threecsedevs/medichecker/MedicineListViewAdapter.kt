@@ -12,9 +12,11 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Li
         val layoutInflater : LayoutInflater = LayoutInflater.from(context)
         val view : View = layoutInflater.inflate(resource , null )
         val medicineName = view.findViewById(R.id.medicineName) as TextView
-        val morning = view.findViewById(R.id.morningToggle) as Switch
-        val lunch = view.findViewById(R.id.lunchToggle) as Switch
-        val dinner = view.findViewById(R.id.dinnerToggle) as Switch
+        val morning = view.findViewById(R.id.morningToggle) as CheckBox
+        val lunch = view.findViewById(R.id.lunchToggle) as CheckBox
+        val dinner = view.findViewById(R.id.dinnerToggle) as CheckBox
+        val edit = view.findViewById(R.id.editBtn) as Button
+        val delete = view.findViewById(R.id.delBtn) as Button
 
         var medicine = items[position]
 
