@@ -25,9 +25,10 @@ class HomeActivity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         var mlist = mutableListOf<Medicine>()
 
-        mlist.add(Medicine("Tyrenol", morning = true, lunch = true, dinner = true))
-        mlist.add(Medicine("Tamiflu", morning = true, lunch = false, dinner = true))
-        mlist.add(Medicine("Ibuprophen", morning = false, lunch = false, dinner = false))
+        // Example Lists
+//        mlist.add(Medicine("Tyrenol", morning = true, lunch = true, dinner = true))
+//        mlist.add(Medicine("Tamiflu", morning = true, lunch = false, dinner = true))
+//        mlist.add(Medicine("Ibuprophen", morning = false, lunch = false, dinner = false))
 
         medicineList.adapter = MedicineListViewAdapter(this.context!!, R.layout.medicine_item, mlist)
 
