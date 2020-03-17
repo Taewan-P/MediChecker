@@ -2,12 +2,10 @@ package com.threecsedevs.medichecker
 
 import android.app.AlertDialog
 import android.content.Context
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import kotlinx.android.synthetic.main.activity_home.*
 
 class MedicineListViewAdapter(context: Context, var resource: Int, var items: MutableList<Medicine> ) : ArrayAdapter<Medicine>(context, resource, items){
 
