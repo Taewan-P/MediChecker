@@ -56,6 +56,18 @@ class DatabaseHelper(context: Context)
         return rowNum > 0
     }
 
+    fun updateMedicine(medicine: Medicine) : Boolean {
+        val db = this.writableDatabase
+        val values = ContentValues()
+
+        values.put(MEDICINE_NAME, medicine.name)
+        values.put(MORNING, booleanToInteger(medicine.morning))
+        values.put(LUNCH, booleanToInteger(medicine.lunch))
+        values.put(DINNER, booleanToInteger(medicine.dinner))
+
+        return db.update(TABLE_NAME, values, "$MEDICINE_NAME=?", arrayOf(medicine.name.toString())) > 0
+    }
+
     fun getAllMedicine() : MutableList<Medicine> {
         var allMedicine = mutableListOf<Medicine>()
         val db = readableDatabase

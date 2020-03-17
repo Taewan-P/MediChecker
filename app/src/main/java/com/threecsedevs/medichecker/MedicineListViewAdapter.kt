@@ -47,13 +47,24 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
                 .setPositiveButton("Edit") { dialogInterface, i ->
                     // Add Item to CustomListView
                     // Update Medicine Value(List) based on Dialog Value
-                    medicine.name = medicineNameToAdd.text.toString()
-                    medicine.morning = takeMorning.isChecked
-                    medicine.lunch = takeLunch.isChecked
-                    medicine.dinner = takeDinner.isChecked
+                    val tmp = Medicine(
+                        medicineNameToAdd.text.toString(),
+                        takeMorning.isChecked,
+                        takeLunch.isChecked,
+                        takeDinner.isChecked)
+                    val result = db.updateMedicine(tmp)
 
-                    notifyDataSetChanged()
-
+                    if (result) {
+                        medicine.name = medicineNameToAdd.text.toString()
+                        medicine.morning = takeMorning.isChecked
+                        medicine.lunch = takeLunch.isChecked
+                        medicine.dinner = takeDinner.isChecked
+                        notifyDataSetChanged()
+                    }
+                    else {
+                        Toast.makeText(this.context, "Edit Failed. Please Try Again.", Toast.LENGTH_SHORT).show()
+                        notifyDataSetChanged()
+                    }
                 }
                 .setNegativeButton("Cancel") {dialogInterface, i ->
                     // Cancel Btn. Do nothing.
@@ -69,7 +80,7 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
                 notifyDataSetChanged()
             }
             else {
-                Toast.makeText(this.context!!, "Delete Failed. Please Try Again.", Toast.LENGTH_SHORT)
+                Toast.makeText(this.context, "Delete Failed. Please Try Again.", Toast.LENGTH_SHORT).show()
                 notifyDataSetChanged()
             }
         }
