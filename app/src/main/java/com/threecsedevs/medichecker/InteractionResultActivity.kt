@@ -122,9 +122,9 @@ class InteractionResultActivity : AppCompatActivity() {
         for (i in rxcuis){
             println(i)
             url += i
-            url+="+"
+            url += "+"
         }
-        url.substring(0,url.length-1)
+        url = url.dropLast(1)
         url+="&sources=ONCHigh"
         println(url)
 
