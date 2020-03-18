@@ -5,13 +5,48 @@
     android:background="@color/colorWhite">
 
     <TextView
-        android:id="@+id/home"
+        android:id="@+id/homeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_alignParentLeft="true"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/home_title"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/helpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/help"
+        android:layout_below="@+id/homeTitle"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ListView
+        android:id="@+id/medicineList"
+        android:layout_below="@+id/homeTitle"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:text="HOME" />
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/radius"
+        android:text="+"
+        android:textSize="25sp" />
+
+
+
+
 
 </RelativeLayout>
