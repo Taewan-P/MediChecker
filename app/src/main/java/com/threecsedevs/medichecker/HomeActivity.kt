@@ -1,7 +1,11 @@
 package com.threecsedevs.medichecker
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +14,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.add_medicine_dialog.*
 
 class HomeActivity : Fragment() {
     var dbHandler : DatabaseHelper? = null
@@ -45,10 +48,10 @@ class HomeActivity : Fragment() {
             val takeLunch = dialogView.findViewById<CheckBox>(R.id.lunchCheck)
             val takeDinner = dialogView.findViewById<CheckBox>(R.id.dinnerCheck)
 
-            builder.setView(dialogView)
+            val addbtn = builder.setView(dialogView)
                 .setPositiveButton("Add") { dialogInterface, i ->
                     // Add Item to CustomListView
-                    if (medicineNameToAdd.text.isNotEmpty()) {
+                    if (!TextUtils.isEmpty(medicineNameToAdd.text.trim())) {
                         val med = Medicine(
                             medicineNameToAdd.text.toString(),
                             takeMorning.isChecked,
@@ -56,7 +59,6 @@ class HomeActivity : Fragment() {
                             takeDinner.isChecked
                         )
                         val a = dbHandler!!.addMedicine(med)
-                        println("Saved Status : $a")
                         (medicineList.adapter as MedicineListViewAdapter).add(med)
                         (medicineList.adapter as MedicineListViewAdapter).notifyDataSetChanged()
                     }
@@ -70,8 +72,25 @@ class HomeActivity : Fragment() {
                     // Cancel Btn. Do nothing.
                 }
                 .show()
+                .getButton(DialogInterface.BUTTON_POSITIVE)
 
+            addbtn.isEnabled = false
 
+            medicineNameToAdd.addTextChangedListener(object: TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {
+                    if (!TextUtils.isEmpty(p0.toString().trim())) {
+                        addbtn.isEnabled = true
+                    }
+                    else {
+                        medicineNameToAdd.error = "Medicine Name is required."
+                        addbtn.isEnabled = false
+                    }
+                }
+
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+            })
         }
     }
 }
