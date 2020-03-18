@@ -98,7 +98,7 @@ class DatabaseHelper(context: Context)
         return allMedicine
     }
 
-    fun booleanToInteger(bool:Boolean) : Int {
+    private fun booleanToInteger(bool:Boolean) : Int {
         return if (bool) {
             // True
             1
@@ -108,7 +108,7 @@ class DatabaseHelper(context: Context)
         }
     }
 
-    fun integerToBoolean(int: Int) : Boolean {
+    private fun integerToBoolean(int: Int) : Boolean {
         return int == 1
     }
 }
