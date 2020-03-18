@@ -52,7 +52,7 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
                         takeMorning.isChecked,
                         takeLunch.isChecked,
                         takeDinner.isChecked)
-                    val result = db.updateMedicine(tmp)
+                    val result = db.updateMedicine(tmp, position)
 
                     if (result) {
                         medicine.name = medicineNameToAdd.text.toString()

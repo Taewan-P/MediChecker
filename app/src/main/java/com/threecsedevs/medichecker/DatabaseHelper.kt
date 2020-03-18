@@ -58,7 +58,7 @@ class DatabaseHelper(context: Context)
         return num == 0
     }
 
-    fun updateMedicine(medicine: Medicine) : Boolean {
+    fun updateMedicine(medicine: Medicine, position: Int) : Boolean {
         val db = this.writableDatabase
         val values = ContentValues()
 
@@ -67,7 +67,7 @@ class DatabaseHelper(context: Context)
         values.put(LUNCH, booleanToInteger(medicine.lunch))
         values.put(DINNER, booleanToInteger(medicine.dinner))
 
-        return db.update(TABLE_NAME, values, "$MEDICINE_NAME=?", arrayOf(medicine.name.toString())) > 0
+        return db.update(TABLE_NAME, values, "$ID IN(SELECT $ID FROM $TABLE_NAME LIMIT 1 OFFSET $position)", null) > 0
     }
 
     fun getAllMedicine() : MutableList<Medicine> {
