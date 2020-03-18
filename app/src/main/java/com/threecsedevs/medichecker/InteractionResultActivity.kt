@@ -3,6 +3,7 @@ package com.threecsedevs.medichecker
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.provider.Settings
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
@@ -34,15 +35,22 @@ class InteractionResultActivity : AppCompatActivity() {
 //
 //            }
 //        }
-            for (name in drug){
-                var drugId = getrxcuis(name)
-                rxcuis.add(drugId)
-                println("Order : $count")
-                count ++
-                println("rxcui-for-loop : $rxcuis")
+        GlobalScope.launch {
+            var job = async {
+                for (name in drug){
+                    var drugId = getrxcuis(name)
+                    delay(2000L)
+                    rxcuis.add(drugId)
+                    println("Order : $count")
+                    count ++
+                    println("rxcui-for-loop : $rxcuis")
+                }
+                rxcuis
             }
-            println("rxcuis.tostring = $rxcuis")
-            var interURL = makeInteractionURL(rxcuis)
+            var dataFromServer = job.await()
+
+            println("rxcuis.tostring = $dataFromServer")
+            var interURL = makeInteractionURL(dataFromServer)
             println("Order : $count")
             count ++
 
@@ -93,13 +101,18 @@ class InteractionResultActivity : AppCompatActivity() {
 
             println("Order : $count")
             count ++
-                Handler().postDelayed({
-                    changeResultText(result)
-                    println("Order : $count")
-                    count ++
-                },2000)
+            Handler().postDelayed({
+                changeResultText(result)
+                println("Order : $count")
+                count ++
+            },2000)
 
-        println("result at InteractionResultActivity : $result")
+            println("result at InteractionResultActivity : $result")
+
+
+        }
+
+
     }
     fun changeResultText(result: String?) {
         loadingCircle.visibility = View.GONE
@@ -123,7 +136,7 @@ class InteractionResultActivity : AppCompatActivity() {
     fun makeRxcuiURL(name: String):String {
         var url = "https://rxnav.nlm.nih.gov/REST/rxcui.json?name="
         url+=name
-        url+="&search=1\""
+        url+="&search=1"
 
         println(url)
 
@@ -133,17 +146,34 @@ class InteractionResultActivity : AppCompatActivity() {
     fun getrxcuis(s: String): String{
         var queue = Volley.newRequestQueue(this)
         val url = makeRxcuiURL(s)
-        var result: String = ""
+        var result: String
+        result = ""
         val getRXCUIRequest = object : StringRequest(Request.Method.GET, url, Response.Listener { response ->
-            val responseTest = JSONObject(response)
-            val rxcui = responseTest.getJSONObject("idGroup").getJSONArray("rxnormId").get(0)
-            result = rxcui.toString()
+            runBlocking {
+                var job = launch {
+                    val responseTest = JSONObject(response)
+                    val rxcui =
+                        responseTest.getJSONObject("idGroup").getJSONArray("rxnormId").get(0)
+                            .apply {
+                                result = toString()
+                            }
+                    println("#1")
+                }
+                job.join()
+            }
+
         }, Response.ErrorListener { error -> println("Response Unsuccessful : $error") }){
             override fun getBodyContentType(): String {
                 return "application/json; charset=utf-8"
             }
         }
+
         queue.add(getRXCUIRequest)
+        runBlocking {
+            println("Wait for 3S")
+            delay(3000L)
+        }
+        println("#2:  $result")
         return result
     }
 }
