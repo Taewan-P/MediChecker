@@ -51,7 +51,7 @@ class DatabaseHelper(context: Context)
 
     fun delMedicine(position: Int) : Boolean {
         val db = this.writableDatabase
-        val query = db.rawQuery("DELETE FROM $TABLE_NAME WHERE $ID IN(SELECT $ID FROM $TABLE_NAME LIMIT 1 OFFSET ${position})", null)
+        val query = db.rawQuery("DELETE FROM $TABLE_NAME WHERE $ID IN(SELECT $ID FROM $TABLE_NAME LIMIT 1 OFFSET $position)", null)
         val num = query.count
         query.close()
         db.close()
