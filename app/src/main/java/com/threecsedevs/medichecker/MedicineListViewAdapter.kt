@@ -74,7 +74,7 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
         }
 
         delete.setOnClickListener {
-            val result = db.delMedicine(medicine)
+            val result = db.delMedicine(position)
             if (result) {
                 items.removeAt(position)
                 notifyDataSetChanged()

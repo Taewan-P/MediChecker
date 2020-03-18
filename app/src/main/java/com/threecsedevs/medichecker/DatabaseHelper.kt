@@ -49,11 +49,13 @@ class DatabaseHelper(context: Context)
         return (Integer.parseInt("$_success") != -1)
     }
 
-    fun delMedicine(medicine: Medicine) : Boolean {
+    fun delMedicine(position: Int) : Boolean {
         val db = this.writableDatabase
-        val rowNum = db.delete(TABLE_NAME, "$MEDICINE_NAME=?", arrayOf(medicine.name.toString()))
+        val query = db.rawQuery("DELETE FROM $TABLE_NAME WHERE $ID IN(SELECT $ID FROM $TABLE_NAME LIMIT 1 OFFSET ${position})", null)
+        val num = query.count
+        query.close()
         db.close()
-        return rowNum > 0
+        return num == 0
     }
 
     fun updateMedicine(medicine: Medicine) : Boolean {
