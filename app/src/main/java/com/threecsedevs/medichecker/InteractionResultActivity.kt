@@ -98,19 +98,17 @@ class InteractionResultActivity : AppCompatActivity() {
                 }
             }
             queue.add(getInteractionRequest)
-
-            println("Order : $count")
-            count ++
-            Handler().postDelayed({
+            delay(3000L)
+            runOnUiThread {
                 changeResultText(result)
                 println("Order : $count")
                 count ++
-            },2000)
-
-            println("result at InteractionResultActivity : $result")
-
-
+            }
         }
+        println("Order : $count")
+        count ++
+
+        println("result at InteractionResultActivity : $result")
 
 
     }
