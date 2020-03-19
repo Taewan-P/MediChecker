@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : Fragment() {
-
+    var dbHandler : ProfileDatabaseHelper? = null
     fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
         return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
     }
@@ -37,6 +37,7 @@ class ProfileActivity : Fragment() {
         var view = this.activity?.window?.decorView
         view!!.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
 
+        dbHandler = ProfileDatabaseHelper(this.context!!)
         val age = mutableListOf<String>("Select Age")
         val height = mutableListOf<String>("Select Height")
         val weight = mutableListOf<String>("Select Weight")
@@ -48,6 +49,8 @@ class ProfileActivity : Fragment() {
         val heightAdapter = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, height)
         val weightAdapter = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, weight)
 
+        val profile = dbHandler!!.getProfile()
+
         ageAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
         heightAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
         weightAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
@@ -56,17 +59,40 @@ class ProfileActivity : Fragment() {
         heightSpinner.adapter = heightAdapter
         weightSpinner.adapter = weightAdapter
 
+        if (profile.size != 0) {
+            // Bug will occur. Still need fix.
+            ageSpinner.setSelection(ageAdapter.getPosition(profile[1]))
+            heightSpinner.setSelection(heightAdapter.getPosition(profile[2]))
+            weightSpinner.setSelection(weightAdapter.getPosition(profile[3]))
+        }
+
         profileName.setOnClickListener {
             val builder = AlertDialog.Builder(this.context)
             val dialogView = layoutInflater.inflate(R.layout.activity_name_dialog, null)
             val nameToAdd = dialogView.findViewById<EditText>(R.id.nameToAdd)
 
-            if (profileName.text != "Set your name") {
-                nameToAdd.setText(profileName.text)
+            if (dbHandler!!.nameExists()) {
+                nameToAdd.setText(profile[0])
             }
             val addbtn = builder.setView(dialogView)
                 .setPositiveButton("Set") { dialogInterface, i ->
-                    profileName.text = nameToAdd.text
+                    if (dbHandler!!.nameExists()) {
+                        // Update Name
+                        val result = dbHandler!!.updateName(nameToAdd.text.toString())
+                        if (result) {
+                            profileName.text = nameToAdd.text
+                        }
+                        else Toast.makeText(this.context, "Name Update Failed.", Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        // Add Name
+                        var result = dbHandler!!.addName(nameToAdd.text.toString())
+                        if (result) {
+                            profileName.text = nameToAdd.text
+                        }
+                        else Toast.makeText(this.context, "Failed to add name.", Toast.LENGTH_SHORT).show()
+
+                    }
                 }
                 .setNegativeButton("Cancel") { dialogInterface, i ->
                     // Do Nothing
@@ -98,7 +124,20 @@ class ProfileActivity : Fragment() {
         ageSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
                 // Display the selected item text on text view
-                if (position != 0) Toast.makeText(view.context, "Spinner selected : ${parent.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
+                if (position != 0) {
+//                    Toast.makeText(view.context, "Spinner selected : ${parent.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
+                    // 1. Find if data exists
+                    // 2. If exists, update.
+                    // 3. If it doesn't exist, add.
+
+                     if (dbHandler!!.ageExists()) {
+                         dbHandler!!.updateAge(parent.getItemAtPosition(position).toString())
+                     }
+                    else {
+                         dbHandler!!.addAge(parent.getItemAtPosition(position).toString())
+                     }
+
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>){
@@ -109,7 +148,16 @@ class ProfileActivity : Fragment() {
         heightSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
                 // Display the selected item text on text view
-                if (position != 0) Toast.makeText(view.context, "Spinner selected : ${parent.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
+                if (position != 0) {
+//                    Toast.makeText(view.context, "Spinner selected : ${parent.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
+
+                    if (dbHandler!!.heightExists()) {
+                        dbHandler!!.updateHeight(parent.getItemAtPosition(position).toString())
+                    }
+                    else {
+                        dbHandler!!.addHeight(parent.getItemAtPosition(position).toString())
+                    }
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>){
@@ -120,7 +168,16 @@ class ProfileActivity : Fragment() {
         weightSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
                 // Display the selected item text on text view
-                if (position != 0) Toast.makeText(view.context, "Spinner selected : ${parent.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
+                if (position != 0) {
+//                    Toast.makeText(view.context, "Spinner selected : ${parent.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
+
+                    if (dbHandler!!.weightExists()) {
+                        dbHandler!!.updateWeight(parent.getItemAtPosition(position).toString())
+                    }
+                    else {
+                        dbHandler!!.addWeight(parent.getItemAtPosition(position).toString())
+                    }
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>){
