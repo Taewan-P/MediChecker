@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -28,6 +29,11 @@ class HomeActivity : Fragment() {
         return container?.inflate(R.layout.activity_home)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // Change StatusBar Color
+        this.activity?.window?.statusBarColor = ContextCompat.getColor(context!!, R.color.colorWhite)
+        var view = this.activity?.window?.decorView
+        view!!.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
         var mlist = mutableListOf<Medicine>()
         dbHandler = DatabaseHelper(this.context!!)
         mlist = dbHandler!!.getAllMedicine()
