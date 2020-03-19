@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : Fragment() {
-    var dbHandler : DatabaseHelper? = null
+    var dbHandler : MyMedicineDatabaseHelper? = null
     fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
         return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
     }
@@ -35,7 +35,7 @@ class HomeActivity : Fragment() {
         view!!.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         var mlist = mutableListOf<Medicine>()
-        dbHandler = DatabaseHelper(this.context!!)
+        dbHandler = MyMedicineDatabaseHelper(this.context!!)
         mlist = dbHandler!!.getAllMedicine()
 
         // Example Lists
