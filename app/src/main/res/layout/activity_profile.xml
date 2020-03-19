@@ -7,6 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:orientation="vertical"
         android:background="@color/colorAccent">
 
         <TextView
@@ -14,12 +15,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="50dp"
             android:text="Hello,"
             android:textSize="40sp"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:textSize="36sp"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:text="Set your name"/>
 
     </LinearLayout>
 
