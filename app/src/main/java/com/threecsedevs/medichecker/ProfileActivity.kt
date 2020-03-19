@@ -61,6 +61,8 @@ class ProfileActivity : Fragment() {
 
         if (profile.size != 0) {
             // Bug will occur. Still need fix.
+            // What if the user just entered his/her name and left?
+            // -> the array size will be 1, causing IndexOutOfRangeError.
             ageSpinner.setSelection(ageAdapter.getPosition(profile[1]))
             heightSpinner.setSelection(heightAdapter.getPosition(profile[2]))
             weightSpinner.setSelection(weightAdapter.getPosition(profile[3]))
