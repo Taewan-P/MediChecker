@@ -85,6 +85,7 @@ class ProfileDatabaseHelper(context: Context)
         TODO("NOT IMPLEMENTED")
     }
 
+    // Get the whole profile
     fun getProfile() : MutableList<String> {
         var profile = mutableListOf<String>()
         val db = readableDatabase
