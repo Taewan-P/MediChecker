@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_gravity="center"
-            android:text="@string/add_drug" />
+            android:text="@string/add_drug"
+            android:background="@drawable/input_medicine_button"/>
 
         <LinearLayout
             android:id="@+id/parentlayout"
@@ -43,7 +44,7 @@
 
             <Button
                 android:id="@+id/inputMedicine"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Input Medicine"
@@ -57,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginRight="20dp"
-            android:text="@string/delete_drug" />
+            android:text="@string/delete_drug"
+            android:background="@drawable/input_medicine_button"/>
 
     </LinearLayout>
 
