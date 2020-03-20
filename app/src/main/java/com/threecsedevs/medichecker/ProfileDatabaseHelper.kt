@@ -34,19 +34,47 @@ class ProfileDatabaseHelper(context: Context)
 
     // Exists' Methods
     fun nameExists() : Boolean {
-        TODO("NOT IMPLEMENTED")
+        val db = readableDatabase
+        val selectALLQuery = "SELECT $NAME FROM $TABLE_NAME"
+        val cursor = db.rawQuery(selectALLQuery, null)
+        val result = cursor != null
+
+        cursor.close()
+        db.close()
+        return result
     }
 
     fun ageExists() : Boolean {
-        TODO("NOT IMPLEMENTED")
+        val db = readableDatabase
+        val selectALLQuery = "SELECT $AGE FROM $TABLE_NAME"
+        val cursor = db.rawQuery(selectALLQuery, null)
+        val result = cursor != null
+
+        cursor.close()
+        db.close()
+        return result
     }
 
     fun heightExists() : Boolean {
-        TODO("NOT IMPLEMENTED")
+        val db = readableDatabase
+        val selectALLQuery = "SELECT $HEIGHT FROM $TABLE_NAME"
+        val cursor = db.rawQuery(selectALLQuery, null)
+        val result = cursor != null
+
+        cursor.close()
+        db.close()
+        return result
     }
 
     fun weightExists() : Boolean {
-        TODO("NOT IMPLEMENTED")
+        val db = readableDatabase
+        val selectALLQuery = "SELECT $WEIGHT FROM $TABLE_NAME"
+        val cursor = db.rawQuery(selectALLQuery, null)
+        val result = cursor != null
+
+        cursor.close()
+        db.close()
+        return result
     }
 
 
