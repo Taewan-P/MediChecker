@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : Fragment() {
-    var dbHandler : ProfileDatabaseHelper? = null
+    var nameDBHandler : NameDatabaseHelper? = null
     fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
         return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
     }
@@ -37,7 +37,7 @@ class ProfileActivity : Fragment() {
         var view = this.activity?.window?.decorView
         view!!.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
 
-        dbHandler = ProfileDatabaseHelper(this.context!!)
+        nameDBHandler = NameDatabaseHelper(this.context!!)
         val age = mutableListOf<String>("Select Age")
         val height = mutableListOf<String>("Select Height")
         val weight = mutableListOf<String>("Select Weight")
@@ -49,7 +49,7 @@ class ProfileActivity : Fragment() {
         val heightAdapter = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, height)
         val weightAdapter = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, weight)
 
-        val profile = dbHandler!!.getProfile()
+        val nameFromDB = nameDBHandler!!.getName()
 
         ageAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
         heightAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
@@ -59,13 +59,10 @@ class ProfileActivity : Fragment() {
         heightSpinner.adapter = heightAdapter
         weightSpinner.adapter = weightAdapter
 
-        if (profile.size != 0) {
-            // Bug will occur. Still need fix.
-            // What if the user just entered his/her name and left?
-            // -> the array size will be 1, causing IndexOutOfRangeError.
-            ageSpinner.setSelection(ageAdapter.getPosition(profile[1]))
-            heightSpinner.setSelection(heightAdapter.getPosition(profile[2]))
-            weightSpinner.setSelection(weightAdapter.getPosition(profile[3]))
+        if (nameFromDB != "") {
+            // Name Exists, Set Name to nameFromDB
+            profileName.text = nameFromDB
+
         }
 
         profileName.setOnClickListener {
@@ -73,14 +70,14 @@ class ProfileActivity : Fragment() {
             val dialogView = layoutInflater.inflate(R.layout.activity_name_dialog, null)
             val nameToAdd = dialogView.findViewById<EditText>(R.id.nameToAdd)
 
-            if (dbHandler!!.nameExists()) {
-                nameToAdd.setText(profile[0])
+            if (nameFromDB != "") {
+                nameToAdd.setText(nameFromDB)
             }
             val addbtn = builder.setView(dialogView)
                 .setPositiveButton("Set") { dialogInterface, i ->
-                    if (dbHandler!!.nameExists()) {
+                    if (nameFromDB != "") {
                         // Update Name
-                        val result = dbHandler!!.updateName(nameToAdd.text.toString())
+                        val result = nameDBHandler!!.updateName(nameToAdd.text.toString())
                         if (result) {
                             profileName.text = nameToAdd.text
                         }
@@ -88,7 +85,7 @@ class ProfileActivity : Fragment() {
                     }
                     else {
                         // Add Name
-                        var result = dbHandler!!.addName(nameToAdd.text.toString())
+                        var result = nameDBHandler!!.addName(nameToAdd.text.toString())
                         if (result) {
                             profileName.text = nameToAdd.text
                         }
