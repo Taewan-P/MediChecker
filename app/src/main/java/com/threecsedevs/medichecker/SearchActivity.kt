@@ -36,12 +36,13 @@ class SearchActivity : Fragment() {
         addBtn.setOnClickListener {
             val newBtn : Button = Button(this.context)
             val params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply { gravity = Gravity.CENTER_HORIZONTAL }
             newBtn.id = counter
             newBtn.layoutParams = params
             newBtn.text = "Input Medicine"
+            newBtn.setBackgroundResource(R.drawable.darkblue_button_design)
             newBtn.setOnClickListener {
                 Toast.makeText(this.context, newBtn.id.toString(), Toast.LENGTH_SHORT).show()
                 val intent = Intent(context, SearchAllActivity::class.java)
