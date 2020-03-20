@@ -21,6 +21,7 @@ class ProfileActivity : Fragment() {
     var nameDBHandler : NameDatabaseHelper? = null
     var ageDBHandler : AgeDatabaseHelper? = null
     var heightDBHandler : HeightDatabaseHelper? = null
+    var weightDBHandler : WeightDatabaseHelper? = null
     fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
         return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
     }
@@ -54,10 +55,12 @@ class ProfileActivity : Fragment() {
         nameDBHandler = NameDatabaseHelper(this.context!!)
         ageDBHandler = AgeDatabaseHelper(this.context!!)
         heightDBHandler = HeightDatabaseHelper(this.context!!)
+        weightDBHandler = WeightDatabaseHelper(this.context!!)
 
         val nameFromDB = nameDBHandler!!.getName()
         val ageFromDB = ageDBHandler!!.getAge()
-        var heightFromDB = heightDBHandler!!.getHeight()
+        val heightFromDB = heightDBHandler!!.getHeight()
+        val weightFromDB = weightDBHandler!!.getWeight()
 
         ageAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
         heightAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
@@ -81,6 +84,11 @@ class ProfileActivity : Fragment() {
         if (heightFromDB != "") {
             // Height Exists, Set Height to heightFromDB
             heightSpinner.setSelection(heightAdapter.getPosition(heightFromDB))
+        }
+
+        if (weightFromDB != "") {
+            // Weight Exists, Set Weight to weightFromDB
+            weightSpinner.setSelection(weightAdapter.getPosition(weightFromDB))
         }
 
         profileName.setOnClickListener {
@@ -188,11 +196,11 @@ class ProfileActivity : Fragment() {
                 if (position != 0) {
 //                    Toast.makeText(view.context, "Spinner selected : ${parent.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
 
-                    if (dbHandler!!.weightExists()) {
-                        dbHandler!!.updateWeight(parent.getItemAtPosition(position).toString())
+                    if (weightFromDB != "") {
+                        weightDBHandler!!.updateWeight(parent.getItemAtPosition(position).toString())
                     }
                     else {
-                        dbHandler!!.addWeight(parent.getItemAtPosition(position).toString())
+                        weightDBHandler!!.addWeight(parent.getItemAtPosition(position).toString())
                     }
                 }
             }
