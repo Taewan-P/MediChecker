@@ -3,22 +3,14 @@ package com.threecsedevs.medichecker
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.activity_search_popup.*
-import kotlinx.coroutines.runBlocking
-import org.json.JSONArray
-import org.json.JSONObject
-import kotlin.concurrent.thread
 
 
 class SearchActivity : Fragment() {
@@ -48,12 +40,13 @@ class SearchActivity : Fragment() {
         addBtn.setOnClickListener {
             val newBtn : Button = Button(this.context)
             val params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            )
+            ).apply { gravity = Gravity.CENTER_HORIZONTAL }
             newBtn.id = counter
             newBtn.layoutParams = params
             newBtn.text = "Input Medicine"
+            newBtn.setBackgroundResource(R.drawable.darkblue_button_design)
             newBtn.setOnClickListener {
                 Toast.makeText(this.context, newBtn.id.toString(), Toast.LENGTH_SHORT).show()
                 val intent = Intent(context, SearchAllActivity::class.java)
