@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : Fragment() {
     var nameDBHandler : NameDatabaseHelper? = null
+    var ageDBHandler : AgeDatabaseHelper? = null
     fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
         return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
     }
@@ -50,6 +51,7 @@ class ProfileActivity : Fragment() {
         val weightAdapter = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, weight)
 
         val nameFromDB = nameDBHandler!!.getName()
+        val ageFromDB = ageDBHandler!!.getAge()
 
         ageAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
         heightAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
@@ -129,11 +131,11 @@ class ProfileActivity : Fragment() {
                     // 2. If exists, update.
                     // 3. If it doesn't exist, add.
 
-                     if (dbHandler!!.ageExists()) {
-                         dbHandler!!.updateAge(parent.getItemAtPosition(position).toString())
+                     if (ageFromDB != "") {
+                         ageDBHandler!!.updateAge(parent.getItemAtPosition(position).toString())
                      }
                     else {
-                         dbHandler!!.addAge(parent.getItemAtPosition(position).toString())
+                         ageDBHandler!!.addAge(parent.getItemAtPosition(position).toString())
                      }
 
                 }
