@@ -65,4 +65,12 @@ class HeightDatabaseHelper (context: Context)
         return result
     }
 
+    fun onDowngrade(old: Int) {
+        this.writableDatabase.version = old
+    }
+
+    fun getVersion(): Int {
+        return DB_VERSION
+    }
+
 }
