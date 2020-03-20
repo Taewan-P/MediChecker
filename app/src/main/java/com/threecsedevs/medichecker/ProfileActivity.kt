@@ -150,11 +150,9 @@ class ProfileActivity : Fragment() {
             override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
                 // Display the selected item text on text view
                 if (position != 0) {
-//                    Toast.makeText(view.context, "Spinner selected : ${parent.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
                     // 1. Find if data exists
                     // 2. If exists, update.
                     // 3. If it doesn't exist, add.
-
                      if (ageFromDB != "") {
                          ageDBHandler!!.updateAge(parent.getItemAtPosition(position).toString())
                      }
@@ -174,8 +172,6 @@ class ProfileActivity : Fragment() {
             override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
                 // Display the selected item text on text view
                 if (position != 0) {
-//                    Toast.makeText(view.context, "Spinner selected : ${parent.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
-
                     if (heightFromDB != "") {
                         heightDBHandler!!.updateHeight(parent.getItemAtPosition(position).toString())
                     }
@@ -194,8 +190,6 @@ class ProfileActivity : Fragment() {
             override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
                 // Display the selected item text on text view
                 if (position != 0) {
-//                    Toast.makeText(view.context, "Spinner selected : ${parent.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
-
                     if (weightFromDB != "") {
                         weightDBHandler!!.updateWeight(parent.getItemAtPosition(position).toString())
                     }
