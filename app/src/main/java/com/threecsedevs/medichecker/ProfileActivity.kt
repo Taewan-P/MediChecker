@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_profile.*
 class ProfileActivity : Fragment() {
     var nameDBHandler : NameDatabaseHelper? = null
     var ageDBHandler : AgeDatabaseHelper? = null
+    var heightDBHandler : HeightDatabaseHelper? = null
     fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
         return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
     }
@@ -52,8 +53,11 @@ class ProfileActivity : Fragment() {
 
         nameDBHandler = NameDatabaseHelper(this.context!!)
         ageDBHandler = AgeDatabaseHelper(this.context!!)
+        heightDBHandler = HeightDatabaseHelper(this.context!!)
+
         val nameFromDB = nameDBHandler!!.getName()
         val ageFromDB = ageDBHandler!!.getAge()
+        var heightFromDB = heightDBHandler!!.getHeight()
 
         ageAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
         heightAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
@@ -72,6 +76,11 @@ class ProfileActivity : Fragment() {
         if (ageFromDB != "") {
             // Age Exists, Set Age to ageFromDB
             ageSpinner.setSelection(ageAdapter.getPosition(ageFromDB))
+        }
+
+        if (heightFromDB != "") {
+            // Height Exists, Set Height to heightFromDB
+            heightSpinner.setSelection(heightAdapter.getPosition(heightFromDB))
         }
 
         profileName.setOnClickListener {
@@ -159,11 +168,11 @@ class ProfileActivity : Fragment() {
                 if (position != 0) {
 //                    Toast.makeText(view.context, "Spinner selected : ${parent.getItemAtPosition(position)}", Toast.LENGTH_SHORT).show()
 
-                    if (dbHandler!!.heightExists()) {
-                        dbHandler!!.updateHeight(parent.getItemAtPosition(position).toString())
+                    if (heightFromDB != "") {
+                        heightDBHandler!!.updateHeight(parent.getItemAtPosition(position).toString())
                     }
                     else {
-                        dbHandler!!.addHeight(parent.getItemAtPosition(position).toString())
+                        heightDBHandler!!.addHeight(parent.getItemAtPosition(position).toString())
                     }
                 }
             }
