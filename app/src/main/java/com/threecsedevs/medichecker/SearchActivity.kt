@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -44,7 +45,7 @@ class SearchActivity : Fragment() {
             val params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
-            )
+            ).apply { gravity = Gravity.CENTER_HORIZONTAL }
             newBtn.id = counter
             newBtn.layoutParams = params
             newBtn.text = "Input Medicine"
