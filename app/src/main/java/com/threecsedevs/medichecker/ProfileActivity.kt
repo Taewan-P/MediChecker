@@ -67,6 +67,11 @@ class ProfileActivity : Fragment() {
 
         }
 
+        if (ageFromDB != "") {
+            // Age Exists, Set Age to ageFromDB
+            ageSpinner.setSelection(ageAdapter.getPosition(ageFromDB))
+        }
+
         profileName.setOnClickListener {
             val builder = AlertDialog.Builder(this.context)
             val dialogView = layoutInflater.inflate(R.layout.activity_name_dialog, null)
