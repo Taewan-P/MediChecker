@@ -66,8 +66,8 @@ class NameDatabaseHelper(context: Context)
         return result
     }
 
-    fun onDowngrade(old: Int) {
-        this.writableDatabase.version = old
+    override fun onDowngrade(db: SQLiteDatabase?, old: Int, newVersion: Int) {
+        db!!.version = old
     }
 
     fun getVersion(): Int {
