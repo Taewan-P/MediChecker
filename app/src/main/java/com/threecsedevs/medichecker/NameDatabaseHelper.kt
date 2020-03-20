@@ -18,14 +18,16 @@ class NameDatabaseHelper(context: Context)
 
     override fun onCreate(db: SQLiteDatabase?) {
         val createTable =
-            "CREATE TABLE $TABLE_NAME" +
+            "CREATE TABLE IF NOT EXISTS $TABLE_NAME" +
                     "($ID INTEGER PRIMARY KEY," +
                     "$NAME TEXT)"
 
         db?.execSQL(createTable)
     }
 
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
+    override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
+        onDowngrade(db, 2, DB_VERSION)
+    }
 
     fun addName(name : String) : Boolean {
         val db = this.writableDatabase

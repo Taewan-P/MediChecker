@@ -16,15 +16,19 @@ class WeightDatabaseHelper (context: Context)
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
+        onDowngrade(db, 2, DB_VERSION)
+    }
+
+    override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
+        onDowngrade(db, 2, DB_VERSION)
         val createTable =
-            "CREATE TABLE $TABLE_NAME" +
+            "CREATE TABLE IF NOT EXISTS $TABLE_NAME" +
                     "($ID INTEGER PRIMARY KEY," +
                     "$WEIGHT TEXT)"
 
         db?.execSQL(createTable)
+        onDowngrade(db, 2, DB_VERSION)
     }
-
-    override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) { }
 
     fun addWeight(weight : String) : Boolean {
         val db = this.writableDatabase
