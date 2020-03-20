@@ -38,7 +38,7 @@ class ProfileActivity : Fragment() {
         var view = this.activity?.window?.decorView
         view!!.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
 
-        nameDBHandler = NameDatabaseHelper(this.context!!)
+
         val age = mutableListOf<String>("Select Age")
         val height = mutableListOf<String>("Select Height")
         val weight = mutableListOf<String>("Select Weight")
@@ -50,6 +50,8 @@ class ProfileActivity : Fragment() {
         val heightAdapter = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, height)
         val weightAdapter = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, weight)
 
+        nameDBHandler = NameDatabaseHelper(this.context!!)
+        ageDBHandler = AgeDatabaseHelper(this.context!!)
         val nameFromDB = nameDBHandler!!.getName()
         val ageFromDB = ageDBHandler!!.getAge()
 
