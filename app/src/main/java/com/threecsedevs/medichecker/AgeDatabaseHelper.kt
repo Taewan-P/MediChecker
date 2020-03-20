@@ -9,9 +9,9 @@ class AgeDatabaseHelper (context: Context)
     : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
     companion object {
-        private val DB_NAME = "UserDB"
-        private val DB_VERSION = 1
-        private val TABLE_NAME = "name"
+        private val DB_NAME = "ProfileDB"
+        private val DB_VERSION = 3
+        private val TABLE_NAME = "age"
         private val ID = "id"
         private val AGE = "Age"
     }

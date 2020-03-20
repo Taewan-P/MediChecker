@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper
 class WeightDatabaseHelper (context: Context)
     : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
     companion object {
-        private val DB_NAME = "UserDB"
-        private val DB_VERSION = 1
+        private val DB_NAME = "ProfileDB"
+        private val DB_VERSION = 5
         private val TABLE_NAME = "weight"
         private val ID = "id"
         private val WEIGHT = "Weight"

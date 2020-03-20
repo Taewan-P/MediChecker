@@ -9,8 +9,8 @@ class NameDatabaseHelper(context: Context)
     : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
 
     companion object {
-        private val DB_NAME = "UserDB"
-        private val DB_VERSION = 1
+        private val DB_NAME = "ProfileDB"
+        private val DB_VERSION = 2
         private val TABLE_NAME = "name"
         private val ID = "id"
         private val NAME = "Name"
