@@ -1,4 +1,4 @@
-package com.threecsedevs.medichecker
+package com.threecsedevs.medichecker.activities
 
 import android.app.Activity
 import android.content.Intent
@@ -6,12 +6,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.KeyEvent
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.main.activity_search_popup.*
 import java.util.*
 
@@ -19,9 +16,8 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONArray
+import com.threecsedevs.medichecker.R
 import org.json.JSONObject
-import kotlin.collections.ArrayList
 import kotlinx.coroutines.*
 
 class SearchAllActivity : AppCompatActivity() {

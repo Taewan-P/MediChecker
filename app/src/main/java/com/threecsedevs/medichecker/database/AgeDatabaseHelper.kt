@@ -1,4 +1,4 @@
-package com.threecsedevs.medichecker
+package com.threecsedevs.medichecker.database
 
 import android.content.ContentValues
 import android.content.Context
@@ -6,7 +6,10 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 class AgeDatabaseHelper (context: Context)
-    : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
+    : SQLiteOpenHelper(context,
+    DB_NAME, null,
+    DB_VERSION
+) {
 
     companion object {
         private val DB_NAME = "ProfileDB"
@@ -17,18 +20,24 @@ class AgeDatabaseHelper (context: Context)
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        onDowngrade(db, 2, DB_VERSION)
+        onDowngrade(db, 2,
+            DB_VERSION
+        )
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, p1: Int, p2: Int) {
-        onDowngrade(db, 2, DB_VERSION)
+        onDowngrade(db, 2,
+            DB_VERSION
+        )
         val createTable =
             "CREATE TABLE IF NOT EXISTS $TABLE_NAME" +
                     "($ID INTEGER PRIMARY KEY," +
                     "$AGE TEXT)"
 
         db?.execSQL(createTable)
-        onDowngrade(db, 2, DB_VERSION)
+        onDowngrade(db, 2,
+            DB_VERSION
+        )
     }
 
     fun addAge(age : String) : Boolean {

@@ -1,15 +1,13 @@
-package com.threecsedevs.medichecker
+package com.threecsedevs.medichecker.activities
 
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.provider.Settings
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.threecsedevs.medichecker.R
 import kotlinx.android.synthetic.main.activity_interaction_result.*
 import kotlinx.coroutines.*
 import org.json.JSONArray

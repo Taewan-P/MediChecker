@@ -1,13 +1,16 @@
-package com.threecsedevs.medichecker
+package com.threecsedevs.medichecker.database
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.threecsedevs.medichecker.medicine.Medicine
 
 class MyMedicineDatabaseHelper(context: Context)
-    : SQLiteOpenHelper(context, DB_NAME, null, DB_VERSION) {
+    : SQLiteOpenHelper(context,
+    DB_NAME, null,
+    DB_VERSION
+) {
 
     companion object {
         private val DB_NAME = "UserDB"
@@ -84,11 +87,20 @@ class MyMedicineDatabaseHelper(context: Context)
             if (cursor.moveToFirst()) {
                 do {
                     name = cursor.getString(cursor.getColumnIndex(MEDICINE_NAME))
-                    morning = integerToBoolean(cursor.getInt(cursor.getColumnIndex(MORNING)))
+                    morning = integerToBoolean(cursor.getInt(cursor.getColumnIndex(
+                        MORNING
+                    )))
                     lunch = integerToBoolean(cursor.getInt(cursor.getColumnIndex(LUNCH)))
                     dinner = integerToBoolean(cursor.getInt(cursor.getColumnIndex(DINNER)))
 
-                    allMedicine.add(Medicine(name,morning,lunch,dinner))
+                    allMedicine.add(
+                        Medicine(
+                            name,
+                            morning,
+                            lunch,
+                            dinner
+                        )
+                    )
                 } while (cursor.moveToNext())
             }
         }

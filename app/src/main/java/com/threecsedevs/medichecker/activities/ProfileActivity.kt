@@ -1,4 +1,4 @@
-package com.threecsedevs.medichecker
+package com.threecsedevs.medichecker.activities
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -15,6 +15,11 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.threecsedevs.medichecker.R
+import com.threecsedevs.medichecker.database.AgeDatabaseHelper
+import com.threecsedevs.medichecker.database.HeightDatabaseHelper
+import com.threecsedevs.medichecker.database.NameDatabaseHelper
+import com.threecsedevs.medichecker.database.WeightDatabaseHelper
 import kotlinx.android.synthetic.main.activity_profile.*
 
 class ProfileActivity : Fragment() {
@@ -36,7 +41,9 @@ class ProfileActivity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Change StatusBar Color
-        this.activity?.window?.statusBarColor = ContextCompat.getColor(context!!, R.color.colorAccent)
+        this.activity?.window?.statusBarColor = ContextCompat.getColor(context!!,
+            R.color.colorAccent
+        )
         var view = this.activity?.window?.decorView
         view!!.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
 
@@ -52,10 +59,14 @@ class ProfileActivity : Fragment() {
         val heightAdapter = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, height)
         val weightAdapter = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, weight)
 
-        nameDBHandler = NameDatabaseHelper(this.context!!)
-        ageDBHandler = AgeDatabaseHelper(this.context!!)
-        heightDBHandler = HeightDatabaseHelper(this.context!!)
-        weightDBHandler = WeightDatabaseHelper(this.context!!)
+        nameDBHandler =
+            NameDatabaseHelper(this.context!!)
+        ageDBHandler =
+            AgeDatabaseHelper(this.context!!)
+        heightDBHandler =
+            HeightDatabaseHelper(this.context!!)
+        weightDBHandler =
+            WeightDatabaseHelper(this.context!!)
 
         val nameFromDB = nameDBHandler!!.getName()
         val ageFromDB = ageDBHandler!!.getAge()

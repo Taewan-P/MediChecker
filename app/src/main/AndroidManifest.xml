@@ -9,15 +9,15 @@
         android:roundIcon="@mipmap/medichecker2"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchAllActivity" />
-        <activity android:name=".InteractionResultActivity"/>
+        <activity android:name=".activities.SearchAllActivity" />
+        <activity android:name=".activities.InteractionResultActivity"/>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.threecsedevs.medichecker
+package com.threecsedevs.medichecker.medicine
 
 import android.app.AlertDialog
 import android.content.Context
@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.threecsedevs.medichecker.R
+import com.threecsedevs.medichecker.database.MyMedicineDatabaseHelper
 
 class MedicineListViewAdapter(context: Context, var resource: Int, var items: MutableList<Medicine> ) : ArrayAdapter<Medicine>(context, resource, items){
-    private lateinit var db:MyMedicineDatabaseHelper
+    private lateinit var db: MyMedicineDatabaseHelper
 
     override fun getView(position: Int, convertView: View?, p2: ViewGroup): View {
         val layoutInflater : LayoutInflater = LayoutInflater.from(context)
@@ -19,7 +21,8 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
         val dinner = view.findViewById(R.id.dinnerToggle) as CheckBox
         val edit = view.findViewById(R.id.editBtn) as Button
         val delete = view.findViewById(R.id.delBtn) as Button
-        db = MyMedicineDatabaseHelper(this.context)
+        db =
+            MyMedicineDatabaseHelper(this.context)
 
         var medicine = items[position]
 
@@ -51,7 +54,8 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
                         medicineNameToAdd.text.toString(),
                         takeMorning.isChecked,
                         takeLunch.isChecked,
-                        takeDinner.isChecked)
+                        takeDinner.isChecked
+                    )
                     val result = db.updateMedicine(tmp, position)
 
                     if (result) {

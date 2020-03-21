@@ -1,4 +1,4 @@
-package com.threecsedevs.medichecker
+package com.threecsedevs.medichecker.activities
 
 import android.app.AlertDialog
 import android.content.DialogInterface
@@ -14,6 +14,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.threecsedevs.medichecker.R
+import com.threecsedevs.medichecker.database.MyMedicineDatabaseHelper
+import com.threecsedevs.medichecker.medicine.Medicine
+import com.threecsedevs.medichecker.medicine.MedicineListViewAdapter
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : Fragment() {
@@ -30,12 +34,15 @@ class HomeActivity : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Change StatusBar Color
-        this.activity?.window?.statusBarColor = ContextCompat.getColor(context!!, R.color.colorWhite)
+        this.activity?.window?.statusBarColor = ContextCompat.getColor(context!!,
+            R.color.colorWhite
+        )
         var view = this.activity?.window?.decorView
         view!!.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         var mlist = mutableListOf<Medicine>()
-        dbHandler = MyMedicineDatabaseHelper(this.context!!)
+        dbHandler =
+            MyMedicineDatabaseHelper(this.context!!)
         mlist = dbHandler!!.getAllMedicine()
 
         // Example Lists
@@ -43,7 +50,12 @@ class HomeActivity : Fragment() {
 //        mlist.add(Medicine("Tamiflu", morning = true, lunch = false, dinner = true))
 //        mlist.add(Medicine("Ibuprophen", morning = false, lunch = false, dinner = false))
 
-        medicineList.adapter = MedicineListViewAdapter(this.context!!, R.layout.medicine_item, mlist)
+        medicineList.adapter =
+            MedicineListViewAdapter(
+                this.context!!,
+                R.layout.medicine_item,
+                mlist
+            )
         medicineList.emptyView = helpText
 
         add_button.setOnClickListener {

@@ -1,4 +1,4 @@
-package com.threecsedevs.medichecker
+package com.threecsedevs.medichecker.medicine
 
 class Medicine (
     var name : String? = null,
