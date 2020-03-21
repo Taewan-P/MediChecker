@@ -45,8 +45,8 @@ class ProfileActivity : Fragment() {
         val height = mutableListOf<String>("Select Height")
         val weight = mutableListOf<String>("Select Weight")
         for (i in 15..100) age.add("$i")
-        for (i in 100..250) height.add("$i cm")
-        for (i in 30..200) weight.add("$i kg")
+        for (i in 130..200 step 5) height.add("$i cm")
+        for (i in 30..150 step 2) weight.add("$i kg")
 
         val ageAdapter = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, age)
         val heightAdapter = ArrayAdapter(this.context!!, android.R.layout.simple_spinner_item, height)
@@ -98,6 +98,9 @@ class ProfileActivity : Fragment() {
 
             if (nameFromDB != "") {
                 nameToAdd.setText(nameFromDB)
+                if (nameFromDB != profileName.text) {
+                    nameToAdd.setText(profileName.text)
+                }
             }
             val addbtn = builder.setView(dialogView)
                 .setPositiveButton("Set") { dialogInterface, i ->
@@ -144,6 +147,63 @@ class ProfileActivity : Fragment() {
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
             })
 
+        }
+
+        nameEditBtn.setOnClickListener {
+            val builder = AlertDialog.Builder(this.context)
+            val dialogView = layoutInflater.inflate(R.layout.activity_name_dialog, null)
+            val nameToAdd = dialogView.findViewById<EditText>(R.id.nameToAdd)
+
+            if (nameFromDB != "") {
+                nameToAdd.setText(nameFromDB)
+                if (nameFromDB != profileName.text) {
+                    nameToAdd.setText(profileName.text)
+                }
+            }
+            val addbtn = builder.setView(dialogView)
+                .setPositiveButton("Set") { dialogInterface, i ->
+                    if (nameFromDB != "") {
+                        // Update Name
+                        val result = nameDBHandler!!.updateName(nameToAdd.text.toString())
+                        if (result) {
+                            profileName.text = nameToAdd.text
+                        }
+                        else Toast.makeText(this.context, "Name Update Failed.", Toast.LENGTH_SHORT).show()
+                    }
+                    else {
+                        // Add Name
+                        var result = nameDBHandler!!.addName(nameToAdd.text.toString())
+                        if (result) {
+                            profileName.text = nameToAdd.text
+                        }
+                        else Toast.makeText(this.context, "Failed to add name.", Toast.LENGTH_SHORT).show()
+
+                    }
+                }
+                .setNegativeButton("Cancel") { dialogInterface, i ->
+                    // Do Nothing
+                }
+                .show()
+                .getButton(DialogInterface.BUTTON_POSITIVE)
+
+            if (TextUtils.isEmpty(nameToAdd.text)) {
+                addbtn.isEnabled = false
+            }
+            nameToAdd.addTextChangedListener(object: TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {
+                    if (!TextUtils.isEmpty(p0.toString().trim())) {
+                        addbtn.isEnabled = true
+                    }
+                    else {
+                        nameToAdd.error = "Name is required."
+                        addbtn.isEnabled = false
+                    }
+                }
+
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+            })
         }
 
         ageSpinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
