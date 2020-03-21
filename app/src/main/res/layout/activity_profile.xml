@@ -25,14 +25,14 @@
 
         <TextView
             android:id="@+id/profileName"
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
-            android:textSize="36sp"
+            android:text="Set your name"
             android:textColor="@color/colorWhite"
-            android:textStyle="bold"
-            android:text="Set your name"/>
+            android:textSize="36sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -45,23 +45,23 @@
         android:layout_below="@id/nameArea">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="50dp"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="Age :" />
 
             <Spinner
                 android:id="@+id/ageSpinner"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="20dp"/>
+                android:layout_margin="20dp" />
 
         </LinearLayout>
 
@@ -72,17 +72,17 @@
             android:layout_gravity="center_horizontal">
 
             <TextView
-                android:layout_width="50dp"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="Height :" />
 
             <Spinner
                 android:id="@+id/heightSpinner"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="20dp"/>
+                android:layout_margin="20dp" />
 
         </LinearLayout>
 
@@ -93,17 +93,17 @@
             android:layout_gravity="center_horizontal">
 
             <TextView
-                android:layout_width="50dp"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="Weight :" />
 
             <Spinner
                 android:id="@+id/weightSpinner"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_margin="20dp"/>
+                android:layout_margin="20dp" />
 
     </LinearLayout>
 
