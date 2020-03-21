@@ -57,7 +57,11 @@ class AgeDatabaseHelper (context: Context)
         val value = ContentValues()
 
         value.put(AGE, age)
-        return db.update(TABLE_NAME, value, "$ID IN(SELECT $ID FROM $TABLE_NAME LIMIT 1 OFFSET 0)", null) > 0
+
+        val result = db.update(TABLE_NAME, value, "$ID IN(SELECT $ID FROM $TABLE_NAME LIMIT 1 OFFSET 0)", null) > 0
+        db.close()
+
+        return result
     }
 
     fun getAge() : String {
