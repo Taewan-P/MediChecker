@@ -14,7 +14,6 @@ MediChecker helps you to take medicine safely. It can check interactions between
 2. [For Users](https://github.com/Taewan-P/MediChecker#for-users)
 - [Download Link](https://github.com/Taewan-P/MediChecker#download)
 - [How to Use](https://github.com/Taewan-P/MediChecker#how-to-use)
-- [Add Alarm](https://github.com/Taewan-P/MediChecker#add-notification-alarams)
 - [Search Interaction](https://github.com/Taewan-P/MediChecker#search-interaction)
 - [User Profile](https://github.com/Taewan-P/MediChecker#user-profile)
 3. [Disclaimer](https://github.com/Taewan-P/MediChecker#declamier)
@@ -51,11 +50,6 @@ And the archive of earlier build can found here.
 [Releases](https://github.com/Taewan-P/MediChecker/releases)
 
 ### How to Use
-#### Add notification alarams
-In the first tab, you can add notification alarams not to forget to take medicines.
-Just tap `+` button and set time when you wish to get notification message.
-![]() ![]()
-
 #### Search Interaction
 In the second tab, you can search for interactions between multiple medicines. Just tap the `Input Medicine` button to search your medicine name or active ingredients like `Simvastatin`. Our application will automatically search your inputs and show suggestions. 
 
