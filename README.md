@@ -1,11 +1,10 @@
 # MediChecker
 
-DSC Sollution Challenge 2020 - ThreeCSEDevs from DSC Hanyang Uviv. ERICA
+DSC Solution Challenge 2020 - ThreeCSEDevs from DSC Hanyang Univ. ERICA
 
 <img src="https://pbs.twimg.com/tweet_video_thumb/ETPxX6cUwAAUuZd.jpg" width="700">
 
-MediChecker helps take medicine regularly and safely. It offers check interaction between multiple medicine, before take them and set alarm notification to take the medicine regularly.
-Interaction data are based on [RxNav](https://rxnav.nlm.nih.gov/index.html) of NLM(National Library of Medicine).
+MediChecker helps you to take medicine safely. It can check interactions between multiple medicines. Interaction data is based on [RxNav](https://rxnav.nlm.nih.gov/index.html) of NLM(National Library of Medicine).
 
 
 ## Table Of Contents
@@ -18,7 +17,7 @@ Interaction data are based on [RxNav](https://rxnav.nlm.nih.gov/index.html) of N
 - [Add Alarm](https://github.com/Taewan-P/MediChecker#add-notification-alarams)
 - [Search Interaction](https://github.com/Taewan-P/MediChecker#search-interaction)
 - [User Profile](https://github.com/Taewan-P/MediChecker#user-profile)
-3. [Declamier](https://github.com/Taewan-P/MediChecker#declamier)
+3. [Disclaimer](https://github.com/Taewan-P/MediChecker#declamier)
 
 
 ## For Developments
@@ -29,7 +28,7 @@ Interaction data are based on [RxNav](https://rxnav.nlm.nih.gov/index.html) of N
 * Android SDK > 23
 
 #### Dependencies
-All they were already written `build.gradle`. You can get all of them just gradle sync.
+All of the dependencies are in `build.gradle`.
 * Android SDK
 * core-ktx ^1.0.2
 * [Smooth bottom bar](https://github.com/ibrahimsn98/SmoothBottomBar)
@@ -37,19 +36,19 @@ All they were already written `build.gradle`. You can get all of them just gradl
 * Coroutine ^1.3.4
 
 ### Build
-* Sync dependencies using `gradle sync`
-* build your own apk using Android Studio
+* Sync dependencies using `Gradle sync`
+* Build apk using Android Studio
 
 
 ## For Users
 ### Download
-You can find release build of our applicatin Here.
+You can find the release build of our application here.
 
-[Download](https://github.com/Taewan-P/MediChecker/release)
+[Download](https://github.com/Taewan-P/MediChecker/releases)
 
-And the achive of earlier build can found here.
+And the archive of earlier build can found here.
 
-[Releases](https://github.com/Taewan-P/MediChecker/release)
+[Releases](https://github.com/Taewan-P/MediChecker/releases)
 
 ### How to Use
 #### Add notification alarams
@@ -58,29 +57,31 @@ Just tap `+` button and set time when you wish to get notification message.
 ![]() ![]()
 
 #### Search Interaction
-In the second tab, you can search interaction between several medicines.
-Just tap `Input Medicine` button to search your medicine name like `Simvastatin`. Our applicaion will automatically search your inputs and show suggestions.
-If you want to modify items, tap the button again.
+In the second tab, you can search for interactions between multiple medicines. Just tap the `Input Medicine` button to search your medicine name or active ingredients like `Simvastatin`. Our application will automatically search your inputs and show suggestions. 
+
+If you want to modify an item, tap the button again.
 
 You can add more medicines using `ADD` button and delete items using `DELETE` button.
 
-After complete all your inputs, tap `SEARCH INTERACTION` button to find results online.
+After completing all your inputs, tap `SEARCH INTERACTION` button to find results online.
 ![]()![]()![]()![]()
 
 
 
 #### User Profile
-You can set your personal info like age, height, weight. 
+You can set your info: Name, Age, Height, and Weight. 
 
 
 
-## Declamier
+## Disclaimer
 
-All of the Informations of our application provides are just for educatinal purpose only and is not intended for medical advice, diagnosis or treatment.
-Data source include NLM's RxNorm API and others.
+All of the information that our application provide are just for educational purpose only and is not intended for medical advice, diagnosis or treatment. Be sure to consult with a qualified physician for advice about medications.
+
+Data sources include NLM's RxNorm API and others.
 
 NLM
 > It is not the intention of NLM to provide specific medical advice, but rather to provide users with information to better understand their health and their medications. NLM urges you to consult with a qualified physician for advice about medications.
 
 DrugBank
+
 > [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3422823/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3422823/)
