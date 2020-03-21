@@ -69,7 +69,7 @@ You can set your info: Name, Age, Height, and Weight.
 
 ## Disclaimer
 
-All of the information that our application provide are just for educational purpose only and is not intended for medical advice, diagnosis or treatment. Be sure to consult with a qualified physician for advice about medications.
+All of the information that our application provide is to provide users with information to better understand their health and their medications, and is not intended for medical advice, diagnosis or treatment. Be sure to consult with a qualified physician for advice about medications.
 
 Data sources include NLM's RxNorm API and others.
 
