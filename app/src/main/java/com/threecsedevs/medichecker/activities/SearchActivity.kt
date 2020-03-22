@@ -80,6 +80,13 @@ class SearchActivity : Fragment() {
                 println(target.text)
                 drugName.add(target.text.toString())
             }
+
+            while ( "Input Medicine" in drugName){
+                var idx = drugName.indexOf("Input Medicine")
+                drugName.removeAt(idx)
+                println("removed drugname : $drugName")
+            }
+
             println("drugName : " + drugName.toString())
 
             val intent = Intent(context, InteractionResultActivity::class.java)
