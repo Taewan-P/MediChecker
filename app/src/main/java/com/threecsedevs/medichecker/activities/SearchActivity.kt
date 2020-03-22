@@ -41,22 +41,28 @@ class SearchActivity : Fragment() {
 
         var counter: Int = 1;
         addBtn.setOnClickListener {
-            val newBtn : Button = Button(this.context)
-            val params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply { gravity = Gravity.CENTER_HORIZONTAL }
-            newBtn.id = counter
-            newBtn.layoutParams = params
-            newBtn.text = "Input Medicine"
-            newBtn.setBackgroundResource(R.drawable.darkblue_button_design)
-            newBtn.setOnClickListener {
-                Toast.makeText(this.context, newBtn.id.toString(), Toast.LENGTH_SHORT).show()
-                val intent = Intent(context, SearchAllActivity::class.java)
-                startActivityForResult(intent, newBtn.id+100)
+            if(parentlayout.childCount < 4){
+                val newBtn : Button = Button(this.context)
+                val params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply { gravity = Gravity.CENTER_HORIZONTAL }
+                newBtn.id = counter
+                newBtn.layoutParams = params
+                newBtn.text = "Input Medicine"
+                newBtn.setBackgroundResource(R.drawable.darkblue_button_design)
+                newBtn.setOnClickListener {
+                    Toast.makeText(this.context, newBtn.id.toString(), Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, SearchAllActivity::class.java)
+                    startActivityForResult(intent, newBtn.id+100)
+                }
+                parentlayout.addView(newBtn)
+                counter ++
+            } else {
+                var toast = Toast.makeText(this.context, "You can enter up to 4 medicines.", Toast.LENGTH_SHORT)
+                toast.show()
             }
-            parentlayout.addView(newBtn)
-            counter ++
+
 
         }
         deleteBtn.setOnClickListener {
