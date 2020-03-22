@@ -89,9 +89,15 @@ class SearchActivity : Fragment() {
 
             println("drugName : " + drugName.toString())
 
-            val intent = Intent(context, InteractionResultActivity::class.java)
-            intent.putStringArrayListExtra("drugName", ArrayList(drugName));
-            startActivity(intent)
+
+            if( drugName.size < 1 ){
+                var toast = Toast.makeText(this.context, "Please input medicine name", Toast.LENGTH_SHORT)
+                toast.show()
+            } else {
+                val intent = Intent(context, InteractionResultActivity::class.java)
+                intent.putStringArrayListExtra("drugName", ArrayList(drugName));
+                startActivity(intent)
+            }
 
         }
 
