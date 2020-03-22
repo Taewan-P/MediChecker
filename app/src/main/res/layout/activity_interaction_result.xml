@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
@@ -13,13 +14,33 @@
         android:layout_centerHorizontal="true"
         android:indeterminateTint="@color/colorPrimary"/>
 
-    <TextView
-        android:id="@+id/resultTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/warning"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:srcCompat="@drawable/ic_warning_24dp" />
+
+        <ImageView
+            android:id="@+id/safe"
+            android:src="@drawable/safemark"
+            android:layout_width="70dp"
+            android:layout_height="70dp" />
+
+        <TextView
+            android:id="@+id/resultTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="There are interactions"
+            android:textSize="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+             />
+
+    </LinearLayout>
 
 </RelativeLayout>
