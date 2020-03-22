@@ -41,22 +41,28 @@ class SearchActivity : Fragment() {
 
         var counter: Int = 1;
         addBtn.setOnClickListener {
-            val newBtn : Button = Button(this.context)
-            val params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply { gravity = Gravity.CENTER_HORIZONTAL }
-            newBtn.id = counter
-            newBtn.layoutParams = params
-            newBtn.text = "Input Medicine"
-            newBtn.setBackgroundResource(R.drawable.darkblue_button_design)
-            newBtn.setOnClickListener {
-                Toast.makeText(this.context, newBtn.id.toString(), Toast.LENGTH_SHORT).show()
-                val intent = Intent(context, SearchAllActivity::class.java)
-                startActivityForResult(intent, newBtn.id+100)
+            if(parentlayout.childCount < 4){
+                val newBtn : Button = Button(this.context)
+                val params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply { gravity = Gravity.CENTER_HORIZONTAL }
+                newBtn.id = counter
+                newBtn.layoutParams = params
+                newBtn.text = "Input Medicine"
+                newBtn.setBackgroundResource(R.drawable.darkblue_button_design)
+                newBtn.setOnClickListener {
+                    Toast.makeText(this.context, newBtn.id.toString(), Toast.LENGTH_SHORT).show()
+                    val intent = Intent(context, SearchAllActivity::class.java)
+                    startActivityForResult(intent, newBtn.id+100)
+                }
+                parentlayout.addView(newBtn)
+                counter ++
+            } else {
+                var toast = Toast.makeText(this.context, "You can enter up to 4 medicines.", Toast.LENGTH_SHORT)
+                toast.show()
             }
-            parentlayout.addView(newBtn)
-            counter ++
+
 
         }
         deleteBtn.setOnClickListener {
@@ -80,11 +86,24 @@ class SearchActivity : Fragment() {
                 println(target.text)
                 drugName.add(target.text.toString())
             }
+
+            while ( "Input Medicine" in drugName){
+                var idx = drugName.indexOf("Input Medicine")
+                drugName.removeAt(idx)
+                println("removed drugname : $drugName")
+            }
+
             println("drugName : " + drugName.toString())
 
-            val intent = Intent(context, InteractionResultActivity::class.java)
-            intent.putStringArrayListExtra("drugName", ArrayList(drugName));
-            startActivity(intent)
+
+            if( drugName.size < 2 ){
+                var toast = Toast.makeText(this.context, "Please input medicine name", Toast.LENGTH_SHORT)
+                toast.show()
+            } else {
+                val intent = Intent(context, InteractionResultActivity::class.java)
+                intent.putStringArrayListExtra("drugName", ArrayList(drugName));
+                startActivity(intent)
+            }
 
         }
 
