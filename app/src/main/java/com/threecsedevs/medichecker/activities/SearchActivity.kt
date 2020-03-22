@@ -96,7 +96,7 @@ class SearchActivity : Fragment() {
             println("drugName : " + drugName.toString())
 
 
-            if( drugName.size < 1 ){
+            if( drugName.size < 2 ){
                 var toast = Toast.makeText(this.context, "Please input medicine name", Toast.LENGTH_SHORT)
                 toast.show()
             } else {
