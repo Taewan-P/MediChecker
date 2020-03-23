@@ -121,7 +121,7 @@ class InteractionResultActivity : AppCompatActivity() {
         loadingCircle.visibility = View.GONE
         var text = ""
         for (i in result){
-            text += i
+            text += "\u2022 " + i
             text += "\n"
         }
         resultTest.text = text
