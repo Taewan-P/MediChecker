@@ -2,6 +2,7 @@ package com.threecsedevs.medichecker.activities
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -9,18 +10,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import com.threecsedevs.medichecker.R
 import com.threecsedevs.medichecker.database.AgeDatabaseHelper
 import com.threecsedevs.medichecker.database.HeightDatabaseHelper
 import com.threecsedevs.medichecker.database.NameDatabaseHelper
 import com.threecsedevs.medichecker.database.WeightDatabaseHelper
 import kotlinx.android.synthetic.main.activity_profile.*
+
 
 class ProfileActivity : Fragment() {
     var nameDBHandler : NameDatabaseHelper? = null
@@ -100,6 +100,23 @@ class ProfileActivity : Fragment() {
         if (weightFromDB != "") {
             // Weight Exists, Set Weight to weightFromDB
             weightSpinner.setSelection(weightAdapter.getPosition(weightFromDB))
+        }
+
+        dotMenu.setOnClickListener {
+            val popupMenu : PopupMenu = PopupMenu(this.context,dotMenu)
+            popupMenu.menuInflater.inflate(R.menu.profile_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.opensource_menu -> {
+                        // Basic Code
+                        // Put actions here
+                        val opensource = Intent(context, OssLicensesMenuActivity::class.java)
+                        startActivity(opensource)
+                    }
+                }
+                true
+            }
+            popupMenu.show()
         }
 
         profileName.setOnClickListener {
@@ -276,4 +293,6 @@ class ProfileActivity : Fragment() {
         }
 
     }
+
+
 }
