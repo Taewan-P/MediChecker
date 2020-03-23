@@ -4,6 +4,13 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite">
 
+    <Button
+        android:id="@+id/dotMenu"
+        android:layout_width="35dp"
+        android:layout_height="50dp"
+        android:layout_alignEnd="@id/nameArea"
+        android:text="M" />
+
     <LinearLayout
         android:id="@+id/nameArea"
         android:layout_width="match_parent"

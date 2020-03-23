@@ -7,12 +7,10 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.threecsedevs.medichecker.R
@@ -100,6 +98,21 @@ class ProfileActivity : Fragment() {
         if (weightFromDB != "") {
             // Weight Exists, Set Weight to weightFromDB
             weightSpinner.setSelection(weightAdapter.getPosition(weightFromDB))
+        }
+
+        dotMenu.setOnClickListener {
+            val popupMenu : PopupMenu = PopupMenu(this.context,dotMenu)
+            popupMenu.menuInflater.inflate(R.menu.profile_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.opensource_menu -> {
+                        // Basic Code
+                        // Put actions here
+                    }
+                }
+                true
+            }
+            popupMenu.show()
         }
 
         profileName.setOnClickListener {
@@ -276,4 +289,6 @@ class ProfileActivity : Fragment() {
         }
 
     }
+
+
 }
