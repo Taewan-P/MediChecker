@@ -21,7 +21,7 @@ class InteractionResultActivity : AppCompatActivity() {
         setContentView(R.layout.activity_interaction_result)
         loadingCircle.visibility = View.VISIBLE
         var count = 0
-        var result = ""
+        var result = mutableListOf<String>()
         var queue = Volley.newRequestQueue(this)
         val rxcuis = mutableListOf<String>()
         var drug = intent.getStringArrayListExtra("drugName")
@@ -56,32 +56,39 @@ class InteractionResultActivity : AppCompatActivity() {
                 StringRequest(Method.GET, interURL, Response.Listener { response ->
                     println("Receiving Response : $response")
                     val responseTest = JSONObject(response)
-
                     if(responseTest.length() > 2){//상호작용 결과가 있을때는 배열 길이가 3임.
-                        val a: Any? = responseTest.getJSONArray("fullInteractionTypeGroup").get(0)
-                        val b: Any? =JSONObject(a.toString()).get("fullInteractionType")
+                        val a: Any? = responseTest.getJSONArray("fullInteractionTypeGroup").get(0) //GET source from drugbank only
+                        val b: Any? = JSONObject(a.toString()).get("fullInteractionType")
                         val c: Any? = JSONArray(b.toString()).get(0) //fullInteractionTypeGroup - Array
-                        val inter_len: Int? = JSONArray(b.toString()).length()
-                        println("length of interaction : ${ inter_len.toString()}")
-                        val drug1: Any? = JSONObject(c.toString()).getJSONArray("minConcept").get(0) //상호작용 약의 기본정보(이름)을 가져옴.
-                        val drug1_name: Any? = JSONObject(drug1.toString()).get("name")
-                        val drug2: Any? = JSONObject(c.toString()).getJSONArray("minConcept").get(1) //상호작용 약의 기본정보(이름)을 가져옴.
-                        val drug2_name: Any? = JSONObject(drug2.toString()).get("name")
-                        val e: Any? = JSONObject(c.toString()).getJSONArray("interactionPair").get(0)
-                        val severity: Any? = JSONObject(e.toString()).get("severity")
-                        val description: Any? = JSONObject(e.toString()).get("description")
-                        val test: Any? = JSONObject((JSONObject(responseTest.getJSONArray("fullInteractionTypeGroup").get(0).toString()).getJSONArray("fullInteractionType").get(0)).toString()).get("comment")
-
-                        println(drug1_name)
-                        println(drug2_name)
-                        println(e)
+                        val inter_len: Int = JSONArray(b.toString()).length()
+                        println("length of interaction : ${ inter_len.toString()}") //상호작용 Description 을담고있는 배열의 길이. For 문 반복횟수.
+                        for (i in 0 until inter_len){
+                            result.add(JSONObject(JSONObject(JSONArray(JSONObject(a.toString()).get("fullInteractionType").toString()).get(i).toString()).getJSONArray("interactionPair").get(0).toString()).get("description").toString())
+                        }
+//                        println("EEEE : " + )
+                        println(result)
 
 
-                        result = description.toString()
-                        println("severity : ${severity.toString()}")
+
+//                        val drug1: Any? = JSONObject(c.toString()).getJSONArray("minConcept").get(0) //상호작용 약의 기본정보(이름)을 가져옴.
+//                        val drug1_name: Any? = JSONObject(drug1.toString()).get("name")
+//                        val drug2: Any? = JSONObject(c.toString()).getJSONArray("minConcept").get(1) //상호작용 약의 기본정보(이름)을 가져옴.
+//                        val drug2_name: Any? = JSONObject(drug2.toString()).get("name")
+//                        val e: Any? = JSONObject(c.toString()).getJSONArray("interactionPair").get(0)
+//                        val severity: Any? = JSONObject(e.toString()).get("severity")
+//                        val description: Any? = JSONObject(e.toString()).get("description")
+//                        val test: Any? = JSONObject((JSONObject(responseTest.getJSONArray("fullInteractionTypeGroup").get(0).toString()).getJSONArray("fullInteractionType").get(0)).toString()).get("comment")
+
+//                        println(drug1_name)
+//                        println(drug2_name)
+//                        println(e)
+
+
+//                        result = description.toString()
+//                        println("severity : ${severity.toString()}")
                         println("result : $result")
                     } else {
-                        result = "Interaction between drugs not found"
+                        result.add("Interaction between drugs not found")
                         println("result : $result")
                     }
 
@@ -110,9 +117,14 @@ class InteractionResultActivity : AppCompatActivity() {
 
 
     }
-    fun changeResultText(result: String?) {
+    fun changeResultText(result: MutableList<String>) {
         loadingCircle.visibility = View.GONE
-        resultTest.text = result
+        var text = ""
+        for (i in result){
+            text += "\u2022 " + i
+            text += "\n"
+        }
+        resultTest.text = text
     }
 
     fun makeInteractionURL(rxcuis: MutableList<String>):String {
@@ -123,7 +135,6 @@ class InteractionResultActivity : AppCompatActivity() {
             url += "+"
         }
         url = url.dropLast(1)
-        url+="&sources=ONCHigh"
         println(url)
 
         return url
