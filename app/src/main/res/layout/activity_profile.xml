@@ -6,10 +6,12 @@
 
     <Button
         android:id="@+id/dotMenu"
-        android:layout_width="35dp"
-        android:layout_height="50dp"
+        android:background="@drawable/ic_more_vert_black_24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="@color/colorWhite"
         android:layout_alignEnd="@id/nameArea"
-        android:text="M" />
+        />
 
     <LinearLayout
         android:id="@+id/nameArea"
