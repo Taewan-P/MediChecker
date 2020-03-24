@@ -63,18 +63,13 @@ class SearchActivity : Fragment() {
 
             for (i in iList.size downTo 1) {
                 var target = inputList.adapter.getItem(i - 1)
-                println(target)
                 drugName.add(target.toString())
             }
 
             while ( "Input Medicine" in drugName){
                 var idx = drugName.indexOf("Input Medicine")
                 drugName.removeAt(idx)
-                println("removed drugname : $drugName")
             }
-
-            println("drugName : " + drugName.toString())
-
 
             if( drugName.size < 2 ){
                 var toast = Toast.makeText(this.context, "Please input medicine name", Toast.LENGTH_SHORT)

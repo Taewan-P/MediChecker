@@ -49,7 +49,6 @@ class InputMedicineListViewAdapter(context: Context, var resource: Int, var item
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 100 -> {
-                    val inputBtn = (context as Activity).findViewById(R.id.inputMedicine_tmp) as Button
                     items[selectedIdx] = data?.getStringExtra("medicine").toString()
                     notifyDataSetChanged()
                 }
