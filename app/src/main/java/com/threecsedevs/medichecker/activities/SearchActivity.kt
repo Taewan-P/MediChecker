@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.threecsedevs.medichecker.R
+import com.threecsedevs.medichecker.input_medicine.InputMedicineListViewAdapter
 import kotlinx.android.synthetic.main.activity_search.*
 
 
@@ -40,51 +41,28 @@ class SearchActivity : Fragment() {
         view!!.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         var counter: Int = 1;
+        var iList = mutableListOf<String>()
+        inputList.adapter =
+            InputMedicineListViewAdapter(this.context!!, R.layout.input_medicine_item, iList)
+
         addBtn.setOnClickListener {
-            if(parentlayout.childCount < 4){
-                val newBtn : Button = Button(this.context)
-                val params : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { gravity = Gravity.CENTER_HORIZONTAL }
-                newBtn.id = counter
-                newBtn.layoutParams = params
-                newBtn.text = "Input Medicine"
-                newBtn.setBackgroundResource(R.drawable.darkblue_button_design)
-                newBtn.setOnClickListener {
-                    Toast.makeText(this.context, newBtn.id.toString(), Toast.LENGTH_SHORT).show()
-                    val intent = Intent(context, SearchAllActivity::class.java)
-                    startActivityForResult(intent, newBtn.id+100)
-                }
-                parentlayout.addView(newBtn)
-                counter ++
-            } else {
-                var toast = Toast.makeText(this.context, "You can enter up to 4 medicines.", Toast.LENGTH_SHORT)
-                toast.show()
+            if (iList.size < 4) {
+                (inputList.adapter as InputMedicineListViewAdapter).add("Input Medicine")
+                (inputList.adapter as InputMedicineListViewAdapter).notifyDataSetChanged()
             }
-
-
-        }
-        deleteBtn.setOnClickListener {
-            if(parentlayout.childCount > 1){
-                parentlayout.removeView(parentlayout.getChildAt(parentlayout.childCount-1))
-                counter --
+            else {
+                Toast.makeText(this.context, "You can add up to 4 medicines.", Toast.LENGTH_SHORT).show()
             }
-
         }
 
-        inputMedicine.setOnClickListener{
-            val intent = Intent(context, SearchAllActivity::class.java)
-            startActivityForResult(intent,100)
-        }
         searchInterBtn.setOnClickListener{
 //            val rxcuis = mutableListOf<String>("207106", "152923", "656659") //TESTING RXCUIS
             val drugName = mutableListOf<String>()
 
-            for (i in counter downTo 1) {
-                var target = parentlayout.getChildAt(i - 1) as Button
-                println(target.text)
-                drugName.add(target.text.toString())
+            for (i in iList.size downTo 1) {
+                var target = inputList.adapter.getItem(i - 1)
+                println(target)
+                drugName.add(target.toString())
             }
 
             while ( "Input Medicine" in drugName){
@@ -108,22 +86,5 @@ class SearchActivity : Fragment() {
         }
 
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK) {
-            when (requestCode) {
-                100 -> {
-                    inputMedicine.text = data!!.getStringExtra("medicine").toString()
-                }
-                else -> {
-                    var btn = parentlayout.getChildAt(requestCode - 100) as Button
-                    btn.text = data!!.getStringExtra("medicine").toString()
-                }
-            }
-        }
-    }
-
-
 
 }
