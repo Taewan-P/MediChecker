@@ -10,58 +10,38 @@
         android:id="@+id/searchTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="40dp"
-
-        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
         android:text="@string/search_title"
         android:textColor="#000000"
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <LinearLayout
+
+    <Button
+        android:id="@+id/addBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/radius"
+        android:text="+"
+        android:textSize="25sp"/>
+
+    <ListView
+        android:id="@+id/inputList"
+        android:layout_below="@+id/searchTitle"
+        android:layout_above="@+id/searchInterBtn"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/searchTitle">
+        android:layout_height="match_parent" />
 
-        <Button
-            android:id="@+id/addBtn"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="center"
-            android:text="@string/add_drug"
-            android:background="@drawable/darkblue_button_design"/>
 
-        <LinearLayout
-            android:id="@+id/parentlayout"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/inputMedicine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Input Medicine"
-                android:background="@drawable/darkblue_button_design"/>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/deleteBtn"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="20dp"
-            android:text="@string/delete_drug"
-            android:background="@drawable/darkblue_button_design"/>
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/searchInterBtn"
