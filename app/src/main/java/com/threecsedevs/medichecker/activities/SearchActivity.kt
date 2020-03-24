@@ -3,6 +3,7 @@ package com.threecsedevs.medichecker.activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 
 
 class SearchActivity : Fragment() {
-
+    var adapter : InputMedicineListViewAdapter? = null
     fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View {
         return LayoutInflater.from(context).inflate(layoutId, this, attachToRoot)
     }
@@ -42,8 +43,9 @@ class SearchActivity : Fragment() {
 
         var counter: Int = 1;
         var iList = mutableListOf<String>()
-        inputList.adapter =
-            InputMedicineListViewAdapter(this.context!!, R.layout.input_medicine_item, iList)
+        adapter = InputMedicineListViewAdapter(this.context!!, R.layout.input_medicine_item, iList)
+        inputList.adapter = adapter
+
 
         addBtn.setOnClickListener {
             if (iList.size < 4) {
@@ -85,6 +87,10 @@ class SearchActivity : Fragment() {
 
         }
 
+    }
+
+    fun getResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        adapter!!.setResult(requestCode, resultCode, data)
     }
 
 }

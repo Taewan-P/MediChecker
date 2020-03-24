@@ -15,6 +15,7 @@ import com.threecsedevs.medichecker.activities.SearchActivity
 import com.threecsedevs.medichecker.activities.SearchAllActivity
 
 class InputMedicineListViewAdapter(context: Context, var resource: Int, var items: MutableList<String>) : ArrayAdapter<String>(context, resource, items){
+    var selectedIdx : Int = -1
 
     override fun getView(position: Int, convertView: View?, p2: ViewGroup): View {
         val layoutInflater : LayoutInflater = LayoutInflater.from(context)
@@ -31,6 +32,7 @@ class InputMedicineListViewAdapter(context: Context, var resource: Int, var item
         }
 
         inputBtn.setOnClickListener {
+            selectedIdx = position
             val intent = Intent(context, SearchAllActivity::class.java)
             (context as Activity).startActivityForResult(intent, 100)
         }
@@ -43,13 +45,13 @@ class InputMedicineListViewAdapter(context: Context, var resource: Int, var item
         return view
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    fun setResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 100 -> {
                     val inputBtn = (context as Activity).findViewById(R.id.inputMedicine_tmp) as Button
-                    inputBtn.text = data?.getStringExtra("medicine").toString()
+                    items[selectedIdx] = data?.getStringExtra("medicine").toString()
+                    notifyDataSetChanged()
                 }
                 else -> {
                     // Error
