@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Toast
-import androidx.core.app.ActivityCompat.startActivityForResult
 import com.threecsedevs.medichecker.R
-import com.threecsedevs.medichecker.activities.SearchActivity
 import com.threecsedevs.medichecker.activities.SearchAllActivity
 
 class InputMedicineListViewAdapter(context: Context, var resource: Int, var items: MutableList<String>) : ArrayAdapter<String>(context, resource, items){

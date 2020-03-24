@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.activity_interaction_result.*
 import kotlinx.coroutines.*
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.*
 
 class InteractionResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
