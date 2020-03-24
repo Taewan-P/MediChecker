@@ -22,6 +22,14 @@ class InputMedicineListViewAdapter(context: Context, var resource: Int, var item
         val inputBtn = view.findViewById(R.id.inputMedicine_tmp) as Button
         val deleteBtn = view.findViewById(R.id.deleteBtn_tmp) as Button
 
+        var drugName = items[position]
+        if (drugName == "") {
+            inputBtn.text = "Input Medicine"
+        }
+        else {
+            inputBtn.text = drugName
+        }
+
         inputBtn.setOnClickListener {
             val intent = Intent(context, SearchAllActivity::class.java)
             (context as Activity).startActivityForResult(intent, 100)
@@ -36,12 +44,12 @@ class InputMedicineListViewAdapter(context: Context, var resource: Int, var item
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        onActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 100 -> {
                     val inputBtn = (context as Activity).findViewById(R.id.inputMedicine_tmp) as Button
-                    inputBtn.text = data!!.getStringExtra("medicine").toString()
+                    inputBtn.text = data?.getStringExtra("medicine").toString()
                 }
                 else -> {
                     // Error

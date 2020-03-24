@@ -6,9 +6,11 @@
 
     <Button
         android:id="@+id/inputMedicine_tmp"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/darkblue_button_design"
         android:text="Input Medicine" />
 
@@ -18,7 +20,9 @@
         android:layout_height="40dp"
         android:background="@drawable/darkblue_button_design"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:text="x"
         android:textColor="#3266ba"
         android:textSize="13sp" />
