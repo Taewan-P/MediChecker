@@ -19,7 +19,7 @@
         android:src="@drawable/warning"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_above="@id/resultTest"
+        android:layout_marginTop="130dp"
         android:layout_marginLeft="30dp" />
 
     <ImageView
@@ -27,7 +27,7 @@
         android:src="@drawable/safemark"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_above="@id/resultTest"
+        android:layout_marginTop="130dp"
         android:layout_marginLeft="30dp" />
 
     <TextView
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="21dp"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="200dp"
         android:layout_marginLeft="30dp"/>
 
 </RelativeLayout>
