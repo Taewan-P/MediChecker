@@ -9,4 +9,5 @@
     <string name="search_inter">Search Interaction</string>
     <string name="home_title">My Medicine</string>
     <string name="help">Start by pressing the add button on the top right side.</string>
+    <string name="input_medicine">Input Medicine</string>
 </resources>

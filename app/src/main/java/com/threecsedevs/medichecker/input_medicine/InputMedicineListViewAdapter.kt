@@ -23,7 +23,7 @@ class InputMedicineListViewAdapter(context: Context, var resource: Int, var item
 
         var drugName = items[position]
         if (drugName == "") {
-            inputBtn.text = "Input Medicine"
+            inputBtn.text = context.getString(R.string.input_medicine)
         }
         else {
             inputBtn.text = drugName
