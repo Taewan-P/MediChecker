@@ -64,7 +64,7 @@ class WeightDatabaseHelper (context: Context)
     }
 
     fun getWeight() : String {
-        var result : String = ""
+        var result = ""
         val db = readableDatabase
         val selectALLQuery = "SELECT * FROM $TABLE_NAME"
         val cursor = db.rawQuery(selectALLQuery, null)
