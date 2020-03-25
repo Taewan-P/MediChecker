@@ -85,8 +85,4 @@ class WeightDatabaseHelper (context: Context)
     override fun onDowngrade(db: SQLiteDatabase?, old: Int, newVersion: Int) {
         db!!.version = old
     }
-
-    fun getVersion(): Int {
-        return DB_VERSION
-    }
 }
