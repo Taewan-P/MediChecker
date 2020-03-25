@@ -40,12 +40,10 @@ class SearchAllActivity : AppCompatActivity() {
                 val stringRequest = object : StringRequest(Request.Method.GET, url + s, Response.Listener { response ->
                     val responseTest = JSONObject(response)
                     val a = responseTest.getJSONObject("suggestionGroup").getJSONObject("suggestionList").getJSONArray("suggestion")
-                    if (a != null) {
-                        val len = a.length()
-                        for (i in 0 until len) {
-                            print(" " + a[i].toString() + " ")
-                            result.add(a[i].toString())
-                        }
+                    val len = a.length()
+                    for (i in 0 until len) {
+                        print(" " + a[i].toString() + " ")
+                        result.add(a[i].toString())
                     }
                 }, Response.ErrorListener { error -> Log.d("ERROR", "Response Unsuccessful : $error") }){}
 

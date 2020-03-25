@@ -40,10 +40,9 @@ class HomeActivity : Fragment() {
         var view = this.activity?.window?.decorView
         view!!.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        var mlist = mutableListOf<Medicine>()
         dbHandler =
             MyMedicineDatabaseHelper(this.context!!)
-        mlist = dbHandler!!.getAllMedicine()
+        var mlist: MutableList<Medicine> = dbHandler!!.getAllMedicine()
 
         medicineList.adapter =
             MedicineListViewAdapter(

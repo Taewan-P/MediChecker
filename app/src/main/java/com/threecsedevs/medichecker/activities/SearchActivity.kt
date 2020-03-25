@@ -38,7 +38,6 @@ class SearchActivity : Fragment() {
         var view = this.activity?.window?.decorView
         view!!.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        var counter: Int = 1;
         var iList = mutableListOf<String>()
         adapter = InputMedicineListViewAdapter(this.context!!, R.layout.input_medicine_item, iList)
         inputList.adapter = adapter
@@ -55,7 +54,6 @@ class SearchActivity : Fragment() {
         }
 
         searchInterBtn.setOnClickListener{
-//            val rxcuis = mutableListOf<String>("207106", "152923", "656659") //TESTING RXCUIS
             val drugName = mutableListOf<String>()
 
             for (i in iList.size downTo 1) {
