@@ -20,6 +20,8 @@ class InteractionResultActivity : AppCompatActivity() {
         val timer = Timer("schedule", true);
         setContentView(R.layout.activity_interaction_result)
         loadingCircle.visibility = View.VISIBLE
+        safe.visibility = View.INVISIBLE
+        warning.visibility = View.INVISIBLE
         var count = 0
         var result = mutableListOf<String>()
         var queue = Volley.newRequestQueue(this)
@@ -120,11 +122,18 @@ class InteractionResultActivity : AppCompatActivity() {
     fun changeResultText(result: MutableList<String>) {
         loadingCircle.visibility = View.GONE
         var text = ""
-        for (i in result){
-            text += "\u2022 " + i
-            text += "\n"
+        if(result.contains("Interaction between drugs not found")){
+            safe.visibility = View.VISIBLE
+            resultTest.text = "Interaction between drugs not found"
         }
-        resultTest.text = text
+        else{
+            warning.visibility = View.VISIBLE
+            for (i in result){
+                text += "\u2022 " + i
+                text += "\n"
+            }
+            resultTest.text = text
+        }
     }
 
     fun makeInteractionURL(rxcuis: MutableList<String>):String {
