@@ -1,10 +1,7 @@
 package com.threecsedevs.medichecker.activities
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +38,6 @@ class SearchActivity : Fragment() {
         var view = this.activity?.window?.decorView
         view!!.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        var counter: Int = 1;
         var iList = mutableListOf<String>()
         adapter = InputMedicineListViewAdapter(this.context!!, R.layout.input_medicine_item, iList)
         inputList.adapter = adapter
@@ -58,23 +54,17 @@ class SearchActivity : Fragment() {
         }
 
         searchInterBtn.setOnClickListener{
-//            val rxcuis = mutableListOf<String>("207106", "152923", "656659") //TESTING RXCUIS
             val drugName = mutableListOf<String>()
 
             for (i in iList.size downTo 1) {
                 var target = inputList.adapter.getItem(i - 1)
-                println(target)
                 drugName.add(target.toString())
             }
 
             while ( "Input Medicine" in drugName){
                 var idx = drugName.indexOf("Input Medicine")
                 drugName.removeAt(idx)
-                println("removed drugname : $drugName")
             }
-
-            println("drugName : " + drugName.toString())
-
 
             if( drugName.size < 2 ){
                 var toast = Toast.makeText(this.context, "Please input medicine name", Toast.LENGTH_SHORT)

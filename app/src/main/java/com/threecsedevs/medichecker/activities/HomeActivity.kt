@@ -40,15 +40,9 @@ class HomeActivity : Fragment() {
         var view = this.activity?.window?.decorView
         view!!.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
-        var mlist = mutableListOf<Medicine>()
         dbHandler =
             MyMedicineDatabaseHelper(this.context!!)
-        mlist = dbHandler!!.getAllMedicine()
-
-        // Example Lists
-//        mlist.add(Medicine("Tyrenol", morning = true, lunch = true, dinner = true))
-//        mlist.add(Medicine("Tamiflu", morning = true, lunch = false, dinner = true))
-//        mlist.add(Medicine("Ibuprophen", morning = false, lunch = false, dinner = false))
+        var mlist: MutableList<Medicine> = dbHandler!!.getAllMedicine()
 
         medicineList.adapter =
             MedicineListViewAdapter(
@@ -67,7 +61,7 @@ class HomeActivity : Fragment() {
             val takeDinner = dialogView.findViewById<CheckBox>(R.id.dinnerCheck)
 
             val addbtn = builder.setView(dialogView)
-                .setPositiveButton("Add") { dialogInterface, i ->
+                .setPositiveButton("Add") { _, _ ->
                     // Add Item to CustomListView
                     if (!TextUtils.isEmpty(medicineNameToAdd.text.trim())) {
                         val med = Medicine(
@@ -76,12 +70,12 @@ class HomeActivity : Fragment() {
                             takeLunch.isChecked,
                             takeDinner.isChecked
                         )
-                        val a = dbHandler!!.addMedicine(med)
+                        dbHandler!!.addMedicine(med)
                         (medicineList.adapter as MedicineListViewAdapter).add(med)
                         (medicineList.adapter as MedicineListViewAdapter).notifyDataSetChanged()
                     }
                     else {
-                        val toast = Toast.makeText(this.context!!,
+                        Toast.makeText(this.context!!,
                         "Fill in the Medicine Name!", Toast.LENGTH_SHORT).show()
                     }
 

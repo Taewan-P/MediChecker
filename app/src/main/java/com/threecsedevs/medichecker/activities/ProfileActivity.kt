@@ -48,9 +48,9 @@ class ProfileActivity : Fragment() {
         view!!.systemUiVisibility = view.systemUiVisibility and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
 
 
-        val age = mutableListOf<String>("Select Age")
-        val height = mutableListOf<String>("Select Height")
-        val weight = mutableListOf<String>("Select Weight")
+        val age = mutableListOf("Select Age")
+        val height = mutableListOf("Select Height")
+        val weight = mutableListOf("Select Weight")
         for (i in 15..100) age.add("$i")
         for (i in 130..200 step 5) height.add("$i cm")
         for (i in 30..150 step 2) weight.add("$i kg")

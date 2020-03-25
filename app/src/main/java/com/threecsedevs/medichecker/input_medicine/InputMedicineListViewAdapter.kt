@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Toast
-import androidx.core.app.ActivityCompat.startActivityForResult
 import com.threecsedevs.medichecker.R
-import com.threecsedevs.medichecker.activities.SearchActivity
 import com.threecsedevs.medichecker.activities.SearchAllActivity
 
 class InputMedicineListViewAdapter(context: Context, var resource: Int, var items: MutableList<String>) : ArrayAdapter<String>(context, resource, items){
@@ -25,7 +23,7 @@ class InputMedicineListViewAdapter(context: Context, var resource: Int, var item
 
         var drugName = items[position]
         if (drugName == "") {
-            inputBtn.text = "Input Medicine"
+            inputBtn.text = context.getString(R.string.input_medicine)
         }
         else {
             inputBtn.text = drugName
@@ -49,7 +47,6 @@ class InputMedicineListViewAdapter(context: Context, var resource: Int, var item
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 100 -> {
-                    val inputBtn = (context as Activity).findViewById(R.id.inputMedicine_tmp) as Button
                     items[selectedIdx] = data?.getStringExtra("medicine").toString()
                     notifyDataSetChanged()
                 }

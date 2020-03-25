@@ -65,7 +65,7 @@ class AgeDatabaseHelper (context: Context)
     }
 
     fun getAge() : String {
-        var result : String = ""
+        var result = ""
         val db = readableDatabase
         val selectALLQuery = "SELECT * FROM $TABLE_NAME"
         val cursor = db.rawQuery(selectALLQuery, null)
@@ -85,9 +85,5 @@ class AgeDatabaseHelper (context: Context)
 
     override fun onDowngrade(db: SQLiteDatabase?, old: Int, newVersion: Int) {
         db!!.version = old
-    }
-
-    fun getVersion(): Int {
-        return DB_VERSION
     }
 }

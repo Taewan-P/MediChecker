@@ -30,9 +30,6 @@ class SearchAllActivity : AppCompatActivity() {
         var adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, wordlist)
 
         resultListView.adapter = adapter
-//        drugInput.setAdapter(adapter)
-//        drugInput.threshold = 1
-
 
 
         drugInput.addTextChangedListener(object: TextWatcher {
@@ -43,18 +40,14 @@ class SearchAllActivity : AppCompatActivity() {
                 val stringRequest = object : StringRequest(Request.Method.GET, url + s, Response.Listener { response ->
                     val responseTest = JSONObject(response)
                     val a = responseTest.getJSONObject("suggestionGroup").getJSONObject("suggestionList").getJSONArray("suggestion")
-                    if (a != null) {
-                        val len = a.length()
-                        println("len : $len")
-                        for (i in 0 until len) {
-                            print(" " + a[i].toString() + " ")
-                            result.add(a[i].toString())
-                        }
+                    val len = a.length()
+                    for (i in 0 until len) {
+                        print(" " + a[i].toString() + " ")
+                        result.add(a[i].toString())
                     }
                 }, Response.ErrorListener { error -> Log.d("ERROR", "Response Unsuccessful : $error") }){}
 
                 queue.add(stringRequest)
-                println("result : $result")
                 return result
             }
             override fun afterTextChanged(p0: Editable?) {
@@ -69,16 +62,13 @@ class SearchAllActivity : AppCompatActivity() {
 
                                         suggestions = getSuggestions(p0.toString())
                                         delay(1200L)
-                                        println("p0 : " + p0.toString())
                                         suggestions
                                     }
                                     var dataFromServer = job.await()
                                     runOnUiThread {
                                         adapter.clear() // Clear ListView
-                                        println("suggestions : $dataFromServer")
                                         for (i in dataFromServer) { adapter.add(i) }
                                         adapter = ArrayAdapter<String>(this@SearchAllActivity, android.R.layout.simple_list_item_1, dataFromServer)
-                                        // Adapter with empty string, but ListView works,(Do not know reason why)
                                         resultListView.adapter = adapter
                                         adapter.notifyDataSetChanged() // Update ListView to new List.
                                     }
