@@ -5,20 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+
 import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_search_popup.*
 import java.util.*
 
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.threecsedevs.medichecker.R
 import org.json.JSONObject
 import kotlinx.coroutines.*
+
+import com.github.kittinunf.fuel.*
+import com.github.kittinunf.result.Result
 
 class SearchAllActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,21 +33,30 @@ class SearchAllActivity : AppCompatActivity() {
 
         drugInput.addTextChangedListener(object: TextWatcher {
             fun getSuggestions(s: String) : MutableList<String> {
-                var result = mutableListOf<String>()
-                var queue = Volley.newRequestQueue(this@SearchAllActivity)
+                var suggestion_result = mutableListOf<String>()
                 val url = "https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name="
-                val stringRequest = object : StringRequest(Request.Method.GET, url + s, Response.Listener { response ->
-                    val responseTest = JSONObject(response)
-                    val a = responseTest.getJSONObject("suggestionGroup").getJSONObject("suggestionList").getJSONArray("suggestion")
-                    val len = a.length()
-                    for (i in 0 until len) {
-                        print(" " + a[i].toString() + " ")
-                        result.add(a[i].toString())
-                    }
-                }, Response.ErrorListener { error -> Log.d("ERROR", "Response Unsuccessful : $error") }){}
 
-                queue.add(stringRequest)
-                return result
+                val (request, response, result) = (url + s)
+                    .httpGet()
+                    .responseString()
+
+                when (result) {
+                    is Result.Failure -> {
+                        val ex = result.getException()
+                        println(ex)
+                    }
+                    is Result.Success -> {
+                        val responseTest = JSONObject(result.get())
+                        val a = responseTest.getJSONObject("suggestionGroup").getJSONObject("suggestionList").getJSONArray("suggestion")
+                        val len = a.length()
+                        for (i in 0 until len) {
+                            print(" " + a[i].toString() + " ")
+                            suggestion_result.add(a[i].toString())
+                        }
+                    }
+                }
+
+                return suggestion_result
             }
             override fun afterTextChanged(p0: Editable?) {
                 val timer = Timer()
@@ -61,7 +69,7 @@ class SearchAllActivity : AppCompatActivity() {
                                     var job = async {
 
                                         suggestions = getSuggestions(p0.toString())
-                                        delay(1200L)
+//                                        delay(1200L)
                                         suggestions
                                     }
                                     var dataFromServer = job.await()
@@ -76,7 +84,7 @@ class SearchAllActivity : AppCompatActivity() {
                             }
                         }
                     }
-                }, 1000)
+                }, 500)
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
