@@ -18,6 +18,7 @@ import kotlinx.coroutines.*
 
 import com.github.kittinunf.fuel.*
 import com.github.kittinunf.result.Result
+import org.json.JSONArray
 
 class SearchAllActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +35,7 @@ class SearchAllActivity : AppCompatActivity() {
         drugInput.addTextChangedListener(object: TextWatcher {
             fun getSuggestions(s: String) : MutableList<String> {
                 var suggestion_result = mutableListOf<String>()
+                val a : JSONArray
                 val url = "https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name="
 
                 val (request, response, result) = (url + s)
@@ -47,7 +49,14 @@ class SearchAllActivity : AppCompatActivity() {
                     }
                     is Result.Success -> {
                         val responseTest = JSONObject(result.get())
-                        val a = responseTest.getJSONObject("suggestionGroup").getJSONObject("suggestionList").getJSONArray("suggestion")
+                        val b = responseTest.getJSONObject("suggestionGroup")
+                        println(b)
+                        a = if (b.get("suggestionList").toString() == "null") {
+                            JSONArray()
+                        } else {
+                            b.getJSONObject("suggestionList").getJSONArray("suggestion")
+                        }
+
                         val len = a.length()
                         for (i in 0 until len) {
                             print(" " + a[i].toString() + " ")
