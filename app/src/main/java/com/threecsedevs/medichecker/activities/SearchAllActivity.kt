@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_search_popup.*
 import java.util.*
 
-import com.android.volley.toolbox.Volley
 import com.threecsedevs.medichecker.R
 import org.json.JSONObject
 import kotlinx.coroutines.*
@@ -35,7 +34,6 @@ class SearchAllActivity : AppCompatActivity() {
         drugInput.addTextChangedListener(object: TextWatcher {
             fun getSuggestions(s: String) : MutableList<String> {
                 var suggestion_result = mutableListOf<String>()
-                var queue = Volley.newRequestQueue(this@SearchAllActivity)
                 val url = "https://rxnav.nlm.nih.gov/REST/spellingsuggestions.json?name="
 
                 val (request, response, result) = (url + s)
