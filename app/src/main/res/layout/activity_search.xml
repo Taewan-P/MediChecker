@@ -51,7 +51,7 @@
         android:background="@drawable/search_interaction_button"
         android:textColor="@color/colorWhite"
         android:drawableLeft="@drawable/pill"
-        android:paddingLeft="13dp"
+        android:paddingStart="15dp"
      />
 
 </RelativeLayout>
