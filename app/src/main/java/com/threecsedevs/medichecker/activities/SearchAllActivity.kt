@@ -68,32 +68,26 @@ class SearchAllActivity : AppCompatActivity() {
                 return suggestion_result
             }
             override fun afterTextChanged(p0: Editable?) {
-                val timer = Timer()
-                timer.schedule(object: TimerTask() {
-                    override fun run() {
-                        GlobalScope.launch {
-                            var suggestions : MutableList<String>
-                            runBlocking {
-                                if(p0 != null && !p0.toString().equals("")){
-                                    var job = async {
+                GlobalScope.launch {
+                    var suggestions : MutableList<String>
+                    runBlocking {
+                        if(p0 != null && !p0.toString().equals("")){
+                            var job = async {
 
-                                        suggestions = getSuggestions(p0.toString())
-//                                        delay(1200L)
-                                        suggestions
-                                    }
-                                    var dataFromServer = job.await()
-                                    runOnUiThread {
-                                        adapter.clear() // Clear ListView
-                                        for (i in dataFromServer) { adapter.add(i) }
-                                        adapter = ArrayAdapter<String>(this@SearchAllActivity, android.R.layout.simple_list_item_1, dataFromServer)
-                                        resultListView.adapter = adapter
-                                        adapter.notifyDataSetChanged() // Update ListView to new List.
-                                    }
-                                }
+                                suggestions = getSuggestions(p0.toString())
+                                suggestions
+                            }
+                            var dataFromServer = job.await()
+                            runOnUiThread {
+                                adapter.clear() // Clear ListView
+                                for (i in dataFromServer) { adapter.add(i) }
+                                adapter = ArrayAdapter<String>(this@SearchAllActivity, android.R.layout.simple_list_item_1, dataFromServer)
+                                resultListView.adapter = adapter
+                                adapter.notifyDataSetChanged() // Update ListView to new List.
                             }
                         }
                     }
-                }, 500)
+                }
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
