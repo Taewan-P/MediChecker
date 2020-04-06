@@ -1,8 +1,10 @@
 package com.threecsedevs.medichecker.activities
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.hardware.input.InputManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -10,6 +12,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -123,6 +126,7 @@ class ProfileActivity : Fragment() {
             val builder = AlertDialog.Builder(this.context)
             val dialogView = layoutInflater.inflate(R.layout.activity_name_dialog, null)
             val nameToAdd = dialogView.findViewById<EditText>(R.id.nameToAdd)
+            val imm = context!!.applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
             if (nameFromDB != "") {
                 nameToAdd.setText(nameFromDB)
@@ -130,6 +134,8 @@ class ProfileActivity : Fragment() {
                     nameToAdd.setText(profileName.text)
                 }
             }
+            nameToAdd.requestFocus()
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
             val addbtn = builder.setView(dialogView)
                 .setPositiveButton("Set") { dialogInterface, i ->
                     if (nameFromDB != "") {
@@ -139,6 +145,7 @@ class ProfileActivity : Fragment() {
                             profileName.text = nameToAdd.text
                         }
                         else Toast.makeText(this.context, "Name Update Failed.", Toast.LENGTH_SHORT).show()
+                        imm.hideSoftInputFromWindow(nameToAdd.windowToken, 0)
                     }
                     else {
                         // Add Name
@@ -147,11 +154,13 @@ class ProfileActivity : Fragment() {
                             profileName.text = nameToAdd.text
                         }
                         else Toast.makeText(this.context, "Failed to add name.", Toast.LENGTH_SHORT).show()
+                        imm.hideSoftInputFromWindow(nameToAdd.windowToken, 0)
 
                     }
                 }
                 .setNegativeButton("Cancel") { dialogInterface, i ->
                     // Do Nothing
+                    imm.hideSoftInputFromWindow(nameToAdd.windowToken, 0)
                 }
                 .show()
                 .getButton(DialogInterface.BUTTON_POSITIVE)
@@ -181,6 +190,7 @@ class ProfileActivity : Fragment() {
             val builder = AlertDialog.Builder(this.context)
             val dialogView = layoutInflater.inflate(R.layout.activity_name_dialog, null)
             val nameToAdd = dialogView.findViewById<EditText>(R.id.nameToAdd)
+            val imm = context!!.applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
             if (nameFromDB != "") {
                 nameToAdd.setText(nameFromDB)
@@ -188,6 +198,8 @@ class ProfileActivity : Fragment() {
                     nameToAdd.setText(profileName.text)
                 }
             }
+            nameToAdd.requestFocus()
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
             val addbtn = builder.setView(dialogView)
                 .setPositiveButton("Set") { dialogInterface, i ->
                     if (nameFromDB != "") {
@@ -197,6 +209,7 @@ class ProfileActivity : Fragment() {
                             profileName.text = nameToAdd.text
                         }
                         else Toast.makeText(this.context, "Name Update Failed.", Toast.LENGTH_SHORT).show()
+                        imm.hideSoftInputFromWindow(nameToAdd.windowToken, 0)
                     }
                     else {
                         // Add Name
@@ -205,11 +218,12 @@ class ProfileActivity : Fragment() {
                             profileName.text = nameToAdd.text
                         }
                         else Toast.makeText(this.context, "Failed to add name.", Toast.LENGTH_SHORT).show()
-
+                        imm.hideSoftInputFromWindow(nameToAdd.windowToken, 0)
                     }
                 }
                 .setNegativeButton("Cancel") { dialogInterface, i ->
                     // Do Nothing
+                    imm.hideSoftInputFromWindow(nameToAdd.windowToken, 0)
                 }
                 .show()
                 .getButton(DialogInterface.BUTTON_POSITIVE)

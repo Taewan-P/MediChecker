@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.threecsedevs.medichecker.R
 import com.threecsedevs.medichecker.database.MyMedicineDatabaseHelper
@@ -38,6 +39,7 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
             val takeMorning = dialogView.findViewById<CheckBox>(R.id.morningCheck)
             val takeLunch = dialogView.findViewById<CheckBox>(R.id.lunchCheck)
             val takeDinner = dialogView.findViewById<CheckBox>(R.id.dinnerCheck)
+            val imm = context.applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
             // Insert Medicine Value to Dialog
             medicineNameToAdd.setText(medicine.name)
@@ -45,7 +47,8 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
             takeLunch.isChecked = medicine.lunch
             takeDinner.isChecked = medicine.dinner
 
-
+            medicineNameToAdd.requestFocus()
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
             builder.setView(dialogView)
                 .setPositiveButton("Edit") { dialogInterface, i ->
                     // Add Item to CustomListView
@@ -64,6 +67,7 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
                         medicine.lunch = takeLunch.isChecked
                         medicine.dinner = takeDinner.isChecked
                         notifyDataSetChanged()
+                        imm.hideSoftInputFromWindow(medicineNameToAdd.windowToken, 0)
                     }
                     else {
                         Toast.makeText(this.context, "Edit Failed. Please Try Again.", Toast.LENGTH_SHORT).show()
@@ -72,6 +76,7 @@ class MedicineListViewAdapter(context: Context, var resource: Int, var items: Mu
                 }
                 .setNegativeButton("Cancel") {dialogInterface, i ->
                     // Cancel Btn. Do nothing.
+                    imm.hideSoftInputFromWindow(medicineNameToAdd.windowToken, 0)
                 }
                 .show()
 

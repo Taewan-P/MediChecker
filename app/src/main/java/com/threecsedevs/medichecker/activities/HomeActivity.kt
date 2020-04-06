@@ -1,6 +1,7 @@
 package com.threecsedevs.medichecker.activities
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
@@ -9,6 +10,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
@@ -59,7 +61,10 @@ class HomeActivity : Fragment() {
             val takeMorning = dialogView.findViewById<CheckBox>(R.id.morningCheck)
             val takeLunch = dialogView.findViewById<CheckBox>(R.id.lunchCheck)
             val takeDinner = dialogView.findViewById<CheckBox>(R.id.dinnerCheck)
+            val imm = context!!.applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 
+            medicineNameToAdd.requestFocus()
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
             val addbtn = builder.setView(dialogView)
                 .setPositiveButton("Add") { _, _ ->
                     // Add Item to CustomListView
@@ -73,15 +78,18 @@ class HomeActivity : Fragment() {
                         dbHandler!!.addMedicine(med)
                         (medicineList.adapter as MedicineListViewAdapter).add(med)
                         (medicineList.adapter as MedicineListViewAdapter).notifyDataSetChanged()
+                        imm.hideSoftInputFromWindow(medicineNameToAdd.windowToken, 0)
                     }
                     else {
                         Toast.makeText(this.context!!,
                         "Fill in the Medicine Name!", Toast.LENGTH_SHORT).show()
                     }
 
+
             }
                 .setNegativeButton("Cancel") {dialogInterface, i ->
                     // Cancel Btn. Do nothing.
+                    imm.hideSoftInputFromWindow(medicineNameToAdd.windowToken, 0)
                 }
                 .show()
                 .getButton(DialogInterface.BUTTON_POSITIVE)
