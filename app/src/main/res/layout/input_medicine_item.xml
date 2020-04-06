@@ -12,7 +12,8 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:background="@drawable/darkblue_button_design"
-        android:text="Input Medicine" />
+        android:text="Input Medicine"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/deleteBtn_tmp"
