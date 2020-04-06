@@ -44,13 +44,8 @@ class SearchActivity : Fragment() {
 
 
         addBtn.setOnClickListener {
-            if (iList.size < 4) {
-                (inputList.adapter as InputMedicineListViewAdapter).add("Input Medicine")
-                (inputList.adapter as InputMedicineListViewAdapter).notifyDataSetChanged()
-            }
-            else {
-                Toast.makeText(this.context, "You can add up to 4 medicines.", Toast.LENGTH_SHORT).show()
-            }
+            (inputList.adapter as InputMedicineListViewAdapter).add("Input Medicine")
+            (inputList.adapter as InputMedicineListViewAdapter).notifyDataSetChanged()
         }
 
         searchInterBtn.setOnClickListener{
