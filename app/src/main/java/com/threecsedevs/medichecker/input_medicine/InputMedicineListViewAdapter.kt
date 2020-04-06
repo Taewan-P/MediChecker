@@ -11,6 +11,8 @@ import android.widget.Button
 import android.widget.Toast
 import com.threecsedevs.medichecker.R
 import com.threecsedevs.medichecker.activities.SearchAllActivity
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
 
 class InputMedicineListViewAdapter(context: Context, var resource: Int, var items: MutableList<String>) : ArrayAdapter<String>(context, resource, items){
     var selectedIdx : Int = -1
@@ -24,6 +26,7 @@ class InputMedicineListViewAdapter(context: Context, var resource: Int, var item
         var drugName = items[position]
         if (drugName == "") {
             inputBtn.text = context.getString(R.string.input_medicine)
+            inputBtn.setAllCaps(false);
         }
         else {
             inputBtn.text = drugName
