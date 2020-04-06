@@ -24,7 +24,7 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:text="x"
-        android:textColor="#3266ba"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="13sp" />
 
 </RelativeLayout>
