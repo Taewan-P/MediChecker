@@ -31,7 +31,7 @@ All of the dependencies are in `build.gradle`.
 * Android SDK
 * core-ktx ^1.0.2
 * [Smooth bottom bar](https://github.com/ibrahimsn98/SmoothBottomBar)
-* volley ^1.1.1
+* [Fuel](https://github.com/kittinunf/fuel)
 * Coroutine ^1.3.4
 
 ### Build
