@@ -14,31 +14,43 @@
         android:layout_centerHorizontal="true"
         android:indeterminateTint="@color/colorPrimary"/>
 
-    <ImageView
-        android:id="@+id/warning"
-        android:src="@drawable/warning"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="130dp"
-        android:layout_marginLeft="30dp" />
 
-    <ImageView
-        android:id="@+id/safe"
-        android:src="@drawable/safemark"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="130dp"
-        android:layout_marginLeft="30dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/resultTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="21dp"
-        android:layout_marginTop="200dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/warning"
+                android:src="@drawable/warning"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="130dp"
+                android:layout_marginLeft="30dp" />
+
+            <ImageView
+                android:id="@+id/safe"
+                android:src="@drawable/safemark"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="130dp"
+                android:layout_marginLeft="30dp" />
+            <TextView
+                android:id="@+id/resultTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="21dp"
+                android:layout_marginTop="200dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="30dp"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>
