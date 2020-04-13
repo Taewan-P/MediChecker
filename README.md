@@ -58,7 +58,7 @@ If you want to modify an item, tap the button again.
 You can add more medicines using `ADD` button and delete items using `DELETE` button.
 
 After completing all your inputs, tap `SEARCH INTERACTION` button to find results online.
-![]()![]()![]()![]()
+<img width="1400" alt="screenshot" src="https://user-images.githubusercontent.com/27392567/79111412-74c86a00-7db7-11ea-98c7-2cfd2ae59649.png">
 
 
 
